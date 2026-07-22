@@ -9,7 +9,7 @@ include "session.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punto Venta - Productos</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
@@ -67,7 +67,7 @@ include "session.php";
 
     </main>
 
-    <script src="js/productos.js"></script>
+    <script src="assets/js/productos.js"></script>
 </body>
 
 </html>

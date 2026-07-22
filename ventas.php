@@ -10,7 +10,7 @@ date_default_timezone_set('America/Bogota');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punto Venta - Ventas</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
@@ -54,7 +54,7 @@ date_default_timezone_set('America/Bogota');
         </section>
     </main>
 
-    <script src="js/ventas.js"></script>
+    <script src="assets/js/ventas.js"></script>
 
 </body>
 
