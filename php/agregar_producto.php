@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.php";
+include "../config/conexion.php";
 
 $contenido = file_get_contents("php://input");
 
