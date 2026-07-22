@@ -7,7 +7,7 @@
             <li><a href="#">Clientes</a></li>
         </div>
         <div>
-            <li><a href="php/logout.php" id="cerrar-sesion">Cerrar sesión</a></li>
+            <li><a href="controllers/logout.php" id="cerrar-sesion">Cerrar sesión</a></li>
         </div>
     </nav>
 </header>

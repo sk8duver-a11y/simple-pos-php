@@ -14,7 +14,7 @@ obtenerVentasDia();
 function obtenerVentasDia() {
   const fecha = inputGanancia.value;
 
-  fetch(`php/obtener_ventas_dia.php?fecha=${fecha}`)
+  fetch(`controllers/obtener_ventas_dia.php?fecha=${fecha}`)
     .then((respuesta) => respuesta.json())
     .then((datos) => {
       mostrarResumen(datos);
@@ -90,7 +90,7 @@ function crearTablaVentas(ventas) {
 }
 
 function verDetalleVenta(idVenta, tr) {
-  fetch(`php/obtener_detalle_venta.php?idVenta=${idVenta}`)
+  fetch(`controllers/obtener_detalle_venta.php?idVenta=${idVenta}`)
     .then((respuesta) => respuesta.json())
     .then((detalle) => {
       mostrarDetalleVenta(detalle, tr, idVenta);
@@ -206,7 +206,7 @@ function eliminarProductoVenta(idDetalle, nombre) {
     return;
   }
 
-  fetch("php/eliminar_producto_venta.php", {
+  fetch("controllers/eliminar_producto_venta.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -235,7 +235,7 @@ function eliminarVenta(idVenta) {
     return;
   }
 
-  fetch("php/eliminar_venta.php", {
+  fetch("controllers/eliminar_venta.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

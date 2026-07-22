@@ -16,7 +16,7 @@ loginPuntoVenta.addEventListener("submit", function (event) {
         return;
     }
 
-    fetch("php/obtener_login.php", {
+    fetch("controllers/obtener_login.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

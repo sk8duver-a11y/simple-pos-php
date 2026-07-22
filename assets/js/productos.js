@@ -19,10 +19,10 @@ formularioProductos.addEventListener('submit', function (event) {
         precioVenta: document.getElementById('precio-venta').value
     };
 
-    let archivo = "php/agregar_producto.php";
+    let archivo = "controllers/agregar_producto.php";
 
     if (idEditar !== null) {
-        archivo = "php/editar_producto.php";
+        archivo = "controllers/editar_producto.php";
     }
 
     if (datos.codigoBarras.trim() === '' || datos.nombre.trim() === '' || datos.precioCompra.trim() === '' || datos.precioVenta.trim() === '') {
@@ -57,7 +57,7 @@ formularioProductos.addEventListener('submit', function (event) {
 });
 
 function listarProductos(busqueda = "") {
-    fetch("php/listar_productos.php?buscar=" + encodeURIComponent(busqueda))
+    fetch("controllers/listar_productos.php?buscar=" + encodeURIComponent(busqueda))
 
         .then(respuesta => respuesta.json())
 
@@ -131,7 +131,7 @@ function listarProductos(busqueda = "") {
                         return;
                     }
 
-                    fetch("php/eliminar_producto.php", {
+                    fetch("controllers/eliminar_producto.php", {
                         method: "POST",
                         headers: {
                             "Content-type": "application/json"

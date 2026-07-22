@@ -49,7 +49,7 @@ SimplePOS/
 ├── database/
 │   └── punto_venta_php.sql
 │
-├── php/
+├── controllers/
 │
 ├── header.php
 ├── index.php

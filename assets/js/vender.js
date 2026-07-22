@@ -23,7 +23,7 @@ async function buscarProductos() {
         return;
     }
 
-    const respuesta = await fetch("php/listar_productos.php?buscar=" + texto);
+    const respuesta = await fetch("controllers/listar_productos.php?buscar=" + texto);
     const productos = await respuesta.json();
 
     listaProductos.innerHTML = "";
@@ -130,7 +130,7 @@ async function buscarCodigoBarras(evento) {
         return;
     }
 
-    const respuesta = await fetch("php/listar_productos.php?buscar=" + codigo);
+    const respuesta = await fetch("controllers/listar_productos.php?buscar=" + codigo);
     const productos = await respuesta.json();
     const producto = productos.find(p => p.codigo_barras === codigo);
 
@@ -206,7 +206,7 @@ async function registrarVenta() {
         productos: productos
     };
 
-    const respuesta = await fetch("php/registrar_venta.php", {
+    const respuesta = await fetch("controllers/registrar_venta.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
