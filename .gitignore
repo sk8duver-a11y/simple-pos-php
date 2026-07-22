@@ -1,0 +1,16 @@
+# Configuración de VS Code
+.vscode/
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Sistema operativo
+Thumbs.db
+.DS_Store
+
+# Dependencias futuras
+vendor/
+
+# Variables de entorno
+.env

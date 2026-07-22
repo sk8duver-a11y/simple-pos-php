@@ -1,0 +1,150 @@
+CREATE DATABASE punto_venta_php;
+
+CREATE TABLE productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_barras VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    precio_compra INT NOT NULL,
+    precio_venta INT NOT NULL,
+    estado TINYINT(1) NOT NULL DEFAULT 1;
+);
+
+CREATE TABLE ventas (
+    id_venta INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    total INT NOT NULL
+);
+
+CREATE TABLE detalle_venta (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_venta INT NOT NULL,
+    id_producto INT NOT NULL,
+
+    codigo_barras VARCHAR(50) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+
+    precio_compra INT NOT NULL,
+    precio_venta INT NOT NULL,
+    ganancia INT NOT NULL,
+
+    cantidad INT NOT NULL,
+    subtotal INT NOT NULL,
+
+    CONSTRAINT fk_detalle_venta
+        FOREIGN KEY (id_venta)
+        REFERENCES ventas(id_venta),
+
+    CONSTRAINT fk_detalle_producto
+        FOREIGN KEY (id_producto)
+        REFERENCES productos(id_producto)
+);
+
+CREATE TABLE usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702028100061","ACEITE RICAPALMA X 1000",9720,11500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702028100047","ACEITE RICA PALMA X 500",5300,6500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702006202350","ACONDICIONADOR SAVITAL X 22",661,1000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708984708709","AGUA POOL X 600 ML",625,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702049000449","AGUARDIENTE ANTIOQUEÑO 1/2",23140,29500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702049000548","AGUARDIENTE ANTIOQUEÑO LIGH 1/2",24586,30500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702049001514","AGUARDIENTE ANTIOQUEÑO LIGH LITRO",49900,62000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702049001507","AGUARDIENTE ANTIOQUEÑO TETRA",44707,58500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702123006916","APRONAX PASTILLA X 275",1225,2100);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702129040259","AREQUIPE KIPE X 50 G",1200,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707237413902","HARINA DE TRIGO LA NIEVE X 500 G",1328,2700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702191164013","AROMATEL  ",1411,2200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702005030503","MALBORO AZUL X 10",4880,6000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702191164853","AROMATEL FRAMBUESA X 180 ML",1400,2200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702206011097","ARROZ CARIBE x 500 G",1836,2800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7862111870360","ATUN LA ESPAÑOLA X 160 G",5100,7500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702010381256","AXION X 235 G",2990,4200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702010380747","AXION X 450 G",5550,6800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702406001188","AZUCAR MANUELITA X 500 G",1740,3300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7709990021332","PANELA NUESTRA TIERRA",5333,6500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7501125176531","ELECTROLIT FRESA-KIWI X 625 ML",7500,9200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708507552239","BIG MANZANA X 2.1 L",3183,4300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7709029739344","BIG COLA X 2.1 L",3183,4300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7709729580154","BIG COLA X 400 ML",1192,2200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7703812002035","BLANCOX ROPA X 500 ML",2630,3700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707189190081","BOCADILLO EL AGUILA X 500 G",4100,5800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7501125184277","ELECTROLIT MORA AZUL X 625 ML",7500,9200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702032120376","CAFE LA BASTILLA 110 G",6250,7300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025182183","GALLETA FESTIVAL FRESA",1089,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("679231557265","BOMBILLO STARLED X 100W",1410,2700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702605101511","IBUPROFENO GENTAR X 800 MG",280,800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702005602809","BOSTON AZUL X 10",4800,5900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("123","MALBORO AZUL UNIDAD",488,800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("121","PANELA PORCIONADA LO X 800 G",5458,6500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090020847","BRETAÑA X 300 ML",2000,2700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090029543","BRETAÑA X 1.5 L",3500,5000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7703114201211","CAFÉ LA BASTILLA X 125 G",6180,7600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702146904008","CANDELA TOKAI",1000,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7706738325448","CANELA ",1000,1600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702004033901","CERVEZA AGUILA LATA X 330 ML",3000,4500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702004002051","CERVEZA AGUILA LIGHT X 330 ML",2367,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702004003058","CERVEZA AGUILA X 1 L",5000,7500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702004002013","CERVEZA AGUILA X 330 ML",2367,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702004004727","CERVEZA CLUB COLOMBIA DORADA LATA",2583,3600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702051002554","CERVEZA PILSEN X 330 ML",2430,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702051002844","CERVEZA PILSEN X 1 L",5000,7500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189056788","CHEESE TRIS PEPSICO X 48 G",1724,2500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189058546","CHOCLITOS LIMON X 45 G",1724,2300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189045799","CHOCLITOS LIMON PEPSICO X 230 G",3561,4600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708787978675","CHOCOLITO LA FRESITA X 60 G",1250,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702088214647","CHOCOLATE LUKER",1020,1400);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702011012203","CHOCOLATINA MUUU COLOMBINA X 10 G",370,700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("77010148","CHOCOLATINA JET X 12 G",835,1500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702007212501","CHOCOLATINA JUMBO X 40 G",2406,3400);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189056245","CHOKIS CHOCOBASE PEPSICO X 47 G",1389,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189011251","CHOKIS CHOCOLATE PEPSICO X 19 G",1333,2000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702129072168","CHORIZO DUO COLANTA X 100 G",3850,5000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702535024423","COCACOLA 1.5 L",5083,7000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702535024447","COCACOLA X 3 L",8834,11000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702535011089","COCACOLA X 400 ML",2500,3400);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702010111501","COLGATE X 60",3450,4500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7703121000029","COLOR CONDIMENTO",600,1200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702006206082","CREMA PARA PEINAR SAVITAL X 22 ML",578,1000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702136645003","CURE BAND",71,300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707248280357","DELIPAPAS X 20 G",403.33,700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7501033204500","DESODORANTE LADY SPEED STICK CREMA X 9 G",934,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702027041662","NOSOTRAS INVISIBLES CLASICAS",3350,5200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7709293841668","TURRON DE MANGO BICHE X 90 G",3000,3600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702439073985","Salsa Tomate Bary X 120 G",1780,2500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189057624","DETODITO BBQ PEPSICO X 165 G",7203,8700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702189057648","DETODITO LIMON PEPSICO X 165 G",7203,9100);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7703363005547","DOLEX FORTE PASTILLA",1730,2400);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7451079001529","DOLEX GRIPA PASTILLA",1285,1800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("160","B0CADILLO AREQUIPE",1000,1500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702910099701","SARDINA LA SOBERANA X 155 G",3510,4500);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025120680","DUCALES 3 TACOS MAS AHORRO NOEL X 441 G",8280,9600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702085012024","ESPAGUETI DORIA X 250 G",1950,3000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707349350065","ESPONJA MULTIUSOS LIDER",1150,1900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707349350294","ESPONJA BRILLO LIDER",1100,1800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702191658871","FAB X 450 G",4750,5900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702010311000","FABULOSO FLORAL X 200 ML",1610,2300);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707133042039","HIT MORA 200 ML",1084,1900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707133098029","HIT MANGO 200 ML",1084,1900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707133025919","HIT FRUTAS TROPICALES",1083,1900);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025144204","GALLETA FESTIVAL CHIPS X 40 G",766,1000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025136797","GALLETA FESTIVAL LIMON X 50 G",1089,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025136759","GALLETA FESTIVAL CHOCOLATE X 50 G",1089,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702025136773","GALLETA FESTIVAL FRESA X 50 G",1089,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702129010085","FRESCOLANTA CHOCOLATE X 200 ML",1483,1700);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702129010108","FRESCOLANTA VAINILLA X 200 ML",1300,1600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7622201776503","TRIDEN POR 5 UNIDADES",1211,1800);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708787978422","GALLETA HELADO VAINILLA CON PASAS LA FRESITA X 85 G",3125,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708787978590","GALLETA HELADO BROWNIE LA FRESITA X 85 G",3125,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7708787978811","GALLETA HELADO FRUTOS ROJOS LA FRESITA X 85 G",3125,4000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090031928","MANZANA POSTOBON  X 400 ML",2000,2600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090031942","UVA POSTOBON X  400 ML",1266,2200);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707151700874","COLOMBIANA X 400 ML",2000,2600);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090001563","MANZANA POSTOBON  X 1.5 L",3500,5000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7707151700515","COLOMBIANA X 1.5 L",3500,5000);
+INSERT INTO productos (codigo_barras, nombre, precio_compra, precio_venta) VALUES ("7702090022728","MANZANA POSTOBON X 3.1 L",7000,9000);
+
