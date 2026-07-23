@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar la aplicación
-COPY . /app/public
+COPY . /app
 
 # Permisos
 RUN chown -R www-data:www-data /app/public
