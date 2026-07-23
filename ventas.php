@@ -18,7 +18,7 @@ date_default_timezone_set('America/Bogota');
     <?php include 'header.php'; ?>
 
     <main>
-
+    
         <fieldset>
             <legend>Resumen del día</legend>
 
