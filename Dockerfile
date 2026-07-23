@@ -1,5 +1,7 @@
 FROM php:8.4-apache
 
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
+
 # Instalar extensiones necesarias
 RUN apt-get update && apt-get install -y \
     libzip-dev \
