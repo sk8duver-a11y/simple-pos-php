@@ -1,16 +1,22 @@
-FROM dunglas/frankenphp:1.4-php8.4
+FROM php:8.4-apache
 
-# Instalar dependencias necesarias
+# Instalar extensiones necesarias
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     git \
     && docker-php-ext-install mysqli pdo_mysql \
+    && a2enmod rewrite \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar la aplicación
-COPY . /app
+# Copiar el proyecto
+COPY . /var/www/html/
 
 # Permisos
-RUN chown -R www-data:www-data /app/public
+RUN chown -R www-data:www-data /var/www/html
+
+# Directorio de trabajo
+WORKDIR /var/www/html
+
+EXPOSE 80
