@@ -1,14 +1,17 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // Si existen las variables de Railway, usarlas.
 // De lo contrario, usar la configuración local (XAMPP).
-$servidor = $_ENV["MYSQLHOST"] ?? "localhost";
-$usuario = $_ENV["MYSQLUSER"] ?? "root";
-$contraseña = $_ENV["MYSQLPASSWORD"] ?? "";
-$basedatos = $_ENV["MYSQLDATABASE"] ?? "punto_venta_php";
-$puerto = $_ENV["MYSQLPORT"] ?? 3306;
+$servidor = getenv("MYSQLHOST") ?: "localhost";
+$usuario = getenv("MYSQLUSER") ?: "root";
+$contraseña = getenv("MYSQLPASSWORD") ?: "";
+$basedatos = getenv("MYSQLDATABASE") ?: "punto_venta_php";
+$puerto = getenv("MYSQLPORT") ?: 3306;
 
 $conn = new mysqli(
     $servidor,
