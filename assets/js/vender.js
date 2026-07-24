@@ -153,9 +153,6 @@ function calcularTotalVenta() {
   totalVenta.textContent = `$${Number(total).toLocaleString("es-CO")}`;
   totalVendido = total;
 
-  console.log(totalVendido);
-  console.log(totalVenta);
-
   calcularCambio();
 }
 
@@ -167,7 +164,6 @@ function calcularCambio() {
   } else {
     cambioDinero.textContent = `$${Number(pago - totalVendido).toLocaleString("es-CO")}`;
   }
-  console.log(cambioDinero);
 }
 
 function cancelarVenta() {
