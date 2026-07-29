@@ -9,6 +9,10 @@ const botonLimpiar = document.getElementById("btn-limpiar-texto");
 const tablaVenta = document.getElementById("productos-vender");
 let totalVendido = 0;
 
+function formatearMoneda(valor) {
+  return `$${Number(valor).toLocaleString("es-CO")}`;
+}
+
 busquedaProducto.addEventListener("input", buscarProductos);
 busquedaProducto.addEventListener("keydown", buscarCodigoBarras);
 inputPagoCon.addEventListener("input", calcularCambio);
@@ -41,7 +45,7 @@ async function buscarProductos() {
 
     div.classList.add("item-producto");
 
-    div.textContent = `${producto.codigo_barras} | ${producto.nombre} | $${producto.precio_venta}`;
+    div.textContent = `${producto.codigo_barras} | ${producto.nombre} | ${formatearMoneda(producto.precio_venta)}`;
 
     div.addEventListener("click", function () {
       agregarProductoVenta(producto);
@@ -64,7 +68,9 @@ function agregarProductoVenta(producto) {
 
       inputCantidad.value = Number(inputCantidad.value) + 1;
 
-      fila.cells[4].textContent = producto.precio_venta * inputCantidad.value;
+      const totalFila = producto.precio_venta * Number(inputCantidad.value);
+      fila.dataset.totalFila = totalFila;
+      fila.cells[4].textContent = formatearMoneda(totalFila);
 
       calcularTotalVenta();
 
@@ -78,13 +84,15 @@ function agregarProductoVenta(producto) {
 
   fila.dataset.idProducto = producto.id_producto;
   fila.dataset.precioCompra = producto.precio_compra;
+  fila.dataset.precioVenta = producto.precio_venta;
+  fila.dataset.totalFila = producto.precio_venta;
 
   fila.innerHTML = `
         <td>${producto.codigo_barras}</td>
         <td>${producto.nombre}</td>
-        <td>${producto.precio_venta}</td>
+        <td>${formatearMoneda(producto.precio_venta)}</td>
         <td><input type="number" class="cantidad" value="1" min="1" style="width:60px;"></td>
-        <td class="total-fila">${producto.precio_venta}</td>
+        <td class="total-fila">${formatearMoneda(producto.precio_venta)}</td>
         <td><button class="btn-eliminar">X</button></td>
     `;
 
@@ -102,7 +110,8 @@ function agregarProductoVenta(producto) {
 
     const total = producto.precio_venta * Number(this.value);
 
-    fila.querySelector(".total-fila").textContent = total;
+    fila.dataset.totalFila = total;
+    fila.querySelector(".total-fila").textContent = formatearMoneda(total);
 
     calcularTotalVenta();
   });
@@ -147,10 +156,10 @@ function calcularTotalVenta() {
   const filas = tablaVenta.querySelectorAll("tr");
 
   for (const fila of filas) {
-    total += Number(fila.querySelector(".total-fila").textContent);
+    total += Number(fila.dataset.totalFila || 0);
   }
 
-  totalVenta.textContent = `$${Number(total).toLocaleString("es-CO")}`;
+  totalVenta.textContent = formatearMoneda(total);
   totalVendido = total;
 
   calcularCambio();
@@ -160,17 +169,17 @@ function calcularCambio() {
   const pago = Number(inputPagoCon.value);
 
   if (pago < totalVendido) {
-    cambioDinero.textContent = 0;
+    cambioDinero.textContent = formatearMoneda(0);
   } else {
-    cambioDinero.textContent = `$${Number(pago - totalVendido).toLocaleString("es-CO")}`;
+    cambioDinero.textContent = formatearMoneda(pago - totalVendido);
   }
 }
 
 function cancelarVenta() {
   tablaVenta.innerHTML = "";
-  totalVenta.textContent = 0;
+  totalVenta.textContent = formatearMoneda(0);
   inputPagoCon.value = "";
-  cambioDinero.textContent = 0;
+  cambioDinero.textContent = formatearMoneda(0);
   busquedaProducto.value = "";
   busquedaProducto.focus();
   listaProductos.innerHTML = "";
@@ -192,9 +201,9 @@ async function registrarVenta() {
       codigoBarras: fila.cells[0].textContent,
       nombre: fila.cells[1].textContent,
       precioCompra: Number(fila.dataset.precioCompra),
-      precioVenta: Number(fila.cells[2].textContent),
+      precioVenta: Number(fila.dataset.precioVenta),
       cantidad: Number(fila.querySelector(".cantidad").value),
-      subtotal: Number(fila.querySelector(".total-fila").textContent),
+      subtotal: Number(fila.dataset.totalFila || 0),
     });
   }
 
