@@ -18,6 +18,13 @@ busquedaProducto.addEventListener("keydown", buscarCodigoBarras);
 inputPagoCon.addEventListener("input", calcularCambio);
 botonCancelar.addEventListener("click", cancelarVenta);
 botonRegistrarVenta.addEventListener("click", registrarVenta);
+botonLimpiar.addEventListener("click", limpiarProductoBuscado);
+
+busquedaProducto.addEventListener("keydown", (evento) => {
+  if (event.key === 'Escape') {
+    limpiarProductoBuscado()
+  }
+})
 
 async function buscarProductos() {
   const texto = busquedaProducto.value.trim();
@@ -229,11 +236,11 @@ async function registrarVenta() {
   cancelarVenta();
 }
 
-botonLimpiar.addEventListener("click", function () {
+function limpiarProductoBuscado () {
   busquedaProducto.value = "";
   busquedaProducto.focus();
   listaProductos.style.display = "none";
-});
+}
 
 function limpiarBusqueda() {
   listaProductos.innerHTML = "";
