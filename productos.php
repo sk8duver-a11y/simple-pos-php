@@ -19,19 +19,19 @@ include "session.php";
         <form id="agregar-producto">
             <fieldset>
                 <legend>Agregar Producto</legend>
-                <div class="item-producto">
+                <div class="item-productos">
                     <label for="codigo-barras">Código Barras</label>
                     <input type="text" id="codigo-barras" name="codigo-barras" autocomplete="off" required>
                 </div>
-                <div class="item-producto">
+                <div class="item-productos">
                     <label for="nombre">Producto</label>
                     <input type="text" id="nombre" name="nombre" autocomplete="off" oninput="this.value = this.value.toUpperCase()" required>
                 </div>
-                <div class="item-producto">
+                <div class="item-productos">
                     <label for="precio-compra">Precio Compra</label>
                     <input type="number" id="precio-compra" name="precio-compra" autocomplete="off" required>
                 </div>
-                <div class="item-producto">
+                <div class="item-productos">
                     <label for="precio-venta">Precio Venta</label>
                     <input type="number" id="precio-venta" name="precio-venta" autocomplete="off" required>
                 </div>
