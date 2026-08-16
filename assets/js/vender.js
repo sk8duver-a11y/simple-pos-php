@@ -21,10 +21,10 @@ botonRegistrarVenta.addEventListener("click", registrarVenta);
 botonLimpiar.addEventListener("click", limpiarProductoBuscado);
 
 busquedaProducto.addEventListener("keydown", (evento) => {
-  if (event.key === 'Escape') {
-    limpiarProductoBuscado()
+  if (event.key === "Escape") {
+    limpiarProductoBuscado();
   }
-})
+});
 
 async function buscarProductos() {
   const texto = busquedaProducto.value.trim();
@@ -236,7 +236,7 @@ async function registrarVenta() {
   cancelarVenta();
 }
 
-function limpiarProductoBuscado () {
+function limpiarProductoBuscado() {
   busquedaProducto.value = "";
   busquedaProducto.focus();
   listaProductos.style.display = "none";
