@@ -49,10 +49,12 @@ include "session.php";
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="clientes-registrados">
                     <!-- Aquí se agregarán los clientes registrados -->
                 </tbody>
             </table>
