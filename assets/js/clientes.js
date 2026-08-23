@@ -1,5 +1,8 @@
 const formularioClientes = document.getElementById("agregar-cliente");
 const tablaClientes = document.getElementById("clientes-registrados");
+const botonGuardar = document.getElementById("btn-agregar-cliente");
+const botonCancelar = document.getElementById("cancelar");
+const buscarCliente = document.getElementById("buscar-cliente");
 
 let idEditar = null;
 let listaClientes = [];
@@ -9,6 +12,7 @@ formularioClientes.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const datos = {
+    idCliente: idEditar,
     nombreCliente: document.getElementById("nombre-cliente").value,
     celularCliente: document.getElementById("celular-cliente").value,
     correoCliente: document.getElementById("correo-cliente").value,
@@ -43,6 +47,8 @@ formularioClientes.addEventListener("submit", function (event) {
       ) {
         formularioClientes.reset();
         idEditar = null;
+        botonGuardar.textContent = "Agregar";
+        listarClientes();
       }
     });
 });
@@ -92,10 +98,48 @@ function listarClientes(busqueda = "") {
         btnEditar.dataset.id_cliente = cliente.id_cliente;
         btnEditar.classList.add("btn-editar");
 
+        btnEditar.addEventListener("click", function () {
+          botonGuardar.textContent = "Actualizar";
+          idEditar = cliente.id_cliente;
+
+          const clienteEditar = listaClientes.find(
+            (u) => u.id_cliente == idEditar,
+          );
+
+          document.getElementById("nombre-cliente").value = cliente.nombre;
+          document.getElementById("celular-cliente").value = cliente.celular;
+          document.getElementById("correo-cliente").value = cliente.correo;
+        });
+
         const btnEliminar = document.createElement("button");
         btnEliminar.textContent = "Eliminar";
         btnEliminar.dataset.id_cliente = cliente.id_cliente;
         btnEliminar.classList.add("btn-eliminar");
+
+        btnEliminar.addEventListener("click", function () {
+          const idCliente = btnEliminar.dataset.id_cliente;
+
+          if (
+            !confirm(
+              `¿Esta seguro que desea eliminar al cliente: ${cliente.nombre}?`,
+            )
+          ) {
+            return;
+          }
+
+          fetch("controllers/eliminar_cliente.php", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({ idCliente: idCliente }),
+          })
+            .then((respuesta) => respuesta.json())
+            .then((resultado) => {
+              alert(resultado.mensaje);
+              listarClientes();
+            });
+        });
 
         tdAcciones.appendChild(btnVerCliente);
         tdAcciones.appendChild(btnEditar);
@@ -106,3 +150,16 @@ function listarClientes(busqueda = "") {
       });
     });
 }
+
+botonCancelar.addEventListener("click", function () {
+  formularioClientes.reset();
+  idEditar = null;
+  botonGuardar.textContent = "Agregar";
+  buscarCliente.value = "";
+  buscarCliente.focus();
+  listarClientes();
+});
+
+buscarCliente.addEventListener("input", function () {
+  listarClientes(buscarCliente.value);
+});
