@@ -19,15 +19,15 @@ include "session.php";
         <form id="agregar-cliente">
             <fieldset>
                 <legend>Agregar Cliente</legend>
-                <div class="item-cliente">
+                <div class="item-clientes">
                     <label for="nombre-cliente">Nombre Cliente</label>
                     <input type="text" id="nombre-cliente" name="nombre-cliente" autocomplete="off" oninput="this.value = this.value.toUpperCase()" require>
                 </div>
-                <div class="item-cliente">
+                <div class="item-clientes">
                     <label for="celular-cliente">Celular</label>
                     <input type="text" id="celular-cliente" name="celular-cliente" autocomplete="off">
                 </div>
-                <div class="item-cliente">
+                <div class="item-clientes">
                     <label for="correo-cliente">Correo Electrónico</label>
                     <input type="email" id="correo-cliente" name="correo-cliente" autocomplete="off">
                 </div>

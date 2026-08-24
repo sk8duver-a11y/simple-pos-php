@@ -67,17 +67,18 @@ include "session.php";
         <h2>Tipo Venta</h2>
         <div id="tipo-venta">
             <label>
-                <input type="radio" id="venta-contado" name="opcion" checked>
+                <input type="radio" id="venta-contado" name="opcion" value="contado" checked>
                 Contado
             </label>
             <label>
-                <input type="radio" id="venta-credito" name="opcion">
+                <input type="radio" id="venta-credito" name="opcion" value="credito">
                 Crédito
             </label>
         </div>
         <div id="buscar-cliente">
             <input type="text" id="input-buscar-cliente" placeholder="Nombre cliente..." autocomplete="off" oninput="this.value = this.value.toUpperCase()">
         </div>
+        <div id="lista-clientes"></div>
         <button onclick="modalVenta.close()" class="btn-eliminar">Cancelar</button>
         <button id="registrar-venta" class="btn-agregar">Registrar Venta</button>
     </dialog>

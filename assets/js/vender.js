@@ -10,6 +10,9 @@ const tablaVenta = document.getElementById("productos-vender");
 const radioVentacontado = document.getElementById("venta-contado");
 const radioVentacredito = document.getElementById("venta-credito");
 const inputBuscarCliente = document.getElementById("input-buscar-cliente");
+const listaClientes = document.getElementById("lista-clientes");
+
+let idClienteSeleccionado = null;
 let totalVendido = 0;
 
 mostrarBuscarCliente();
@@ -26,6 +29,7 @@ botonRegistrarVenta.addEventListener("click", registrarVenta);
 botonLimpiar.addEventListener("click", limpiarProductoBuscado);
 radioVentacontado.addEventListener("click", mostrarBuscarCliente);
 radioVentacredito.addEventListener("click", mostrarBuscarCliente);
+inputBuscarCliente.addEventListener("input", buscarClientes);
 
 busquedaProducto.addEventListener("keydown", (evento) => {
   if (event.key === "Escape") {
@@ -226,21 +230,26 @@ async function registrarVenta() {
     pagoCon: Number(inputPagoCon.value),
     cambio: Number(cambioDinero.textContent),
     productos: productos,
+    tipoVenta: radioVentacontado.checked ? "CONTADO" : "CREDITO",
+    idCliente: idClienteSeleccionado,
+    estado: radioVentacontado.checked ? "PAGADO" : "PENDIENTE",
   };
 
-  const respuesta = await fetch("controllers/registrar_venta.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(venta),
-  });
+  console.log(venta);
 
-  const resultado = await respuesta.json();
+  // const respuesta = await fetch("controllers/registrar_venta.php", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(venta),
+  // });
 
-  alert(resultado.mensaje);
+  // const resultado = await respuesta.json();
 
-  cancelarVenta();
+  // alert(resultado.mensaje);
+
+  // cancelarVenta();
 }
 
 function limpiarProductoBuscado() {
@@ -260,10 +269,55 @@ function mostrarBuscarCliente() {
   if (radioVentacontado.checked) {
     inputBuscarCliente.disabled = true;
     inputBuscarCliente.value = "";
-    inputBuscarCliente.focus();
+    inputBuscarCliente.placeholder = "";
+    listaClientes.style.display = "none";
   } else {
     inputBuscarCliente.disabled = false;
     inputBuscarCliente.value = "";
     inputBuscarCliente.focus();
+    inputBuscarCliente.placeholder = "Buscar cliente...";
   }
+}
+
+async function buscarClientes() {
+  const textoCliente = inputBuscarCliente.value.trim();
+  
+  if (textoCliente === "") {
+    listaClientes.style.display = "none";
+    listaClientes.innerHTML = "";
+    return;
+  }
+
+  const respuestaClientes = await fetch("controllers/listar_clientes.php?buscar=" + textoCliente,);
+
+  const clientes = await respuestaClientes.json();
+
+  listaClientes.innerHTML = "";
+
+  if (clientes.length === 0) {
+    listaClientes.style.display = "none";
+    return;
+  }
+
+  clientes.forEach((cliente) => {
+    const div = document.createElement("div");
+
+    div.classList.add("item-cliente");
+
+    div.textContent = `${cliente.nombre}`;
+
+    div.addEventListener("click", function() {
+      seleccionarCliente(cliente)
+    });
+
+    listaClientes.appendChild(div);
+  })
+
+  listaClientes.style.display = "block";
+}
+
+function seleccionarCliente (cliente) {
+  inputBuscarCliente.value = cliente.nombre;
+  listaClientes.style.display = "none";
+  idClienteSeleccionado = cliente.id_cliente;
 }

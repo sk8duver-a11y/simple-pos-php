@@ -102,7 +102,7 @@ fieldset {
 }
 
 .item-productos,
-.item-cliente {
+.item-clientes {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -256,12 +256,14 @@ tr:hover {
   z-index: 1000;
 }
 
-.item-producto {
+.item-producto,
+.item-cliente {
   padding: 10px;
   cursor: pointer;
 }
 
-.item-producto:hover {
+.item-producto:hover, 
+.item-cliente:hover {
   background-color: #f0f0f0;
 }
 
@@ -304,7 +306,7 @@ legend {
   gap: 20px;
 }
 
-.filtros-resumen .item-producto {
+.filtros-resumen .item-producto .item-cliente {
   flex: 1;
 }
 
@@ -381,7 +383,7 @@ legend {
 ========================== */
 
 #modalVenta {
-  margin: auto;
+  margin: 20px auto;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -414,4 +416,17 @@ h2 {
   color: var(--blue-btn);
   text-align: center;
   margin-bottom: 30px;
+}
+
+#lista-clientes {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
 }
