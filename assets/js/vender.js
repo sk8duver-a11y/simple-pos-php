@@ -7,7 +7,12 @@ const botonCancelar = document.getElementById("cancelar-venta");
 const botonRegistrarVenta = document.getElementById("registrar-venta");
 const botonLimpiar = document.getElementById("btn-limpiar-texto");
 const tablaVenta = document.getElementById("productos-vender");
+const radioVentacontado = document.getElementById("venta-contado");
+const radioVentacredito = document.getElementById("venta-credito");
+const inputBuscarCliente = document.getElementById("input-buscar-cliente");
 let totalVendido = 0;
+
+mostrarBuscarCliente();
 
 function formatearMoneda(valor) {
   return `$${Number(valor).toLocaleString("es-CO")}`;
@@ -19,6 +24,8 @@ inputPagoCon.addEventListener("input", calcularCambio);
 botonCancelar.addEventListener("click", cancelarVenta);
 botonRegistrarVenta.addEventListener("click", registrarVenta);
 botonLimpiar.addEventListener("click", limpiarProductoBuscado);
+radioVentacontado.addEventListener("click", mostrarBuscarCliente);
+radioVentacredito.addEventListener("click", mostrarBuscarCliente);
 
 busquedaProducto.addEventListener("keydown", (evento) => {
   if (event.key === "Escape") {
@@ -247,4 +254,16 @@ function limpiarBusqueda() {
   listaProductos.style.display = "none";
   busquedaProducto.value = "";
   busquedaProducto.focus();
+}
+
+function mostrarBuscarCliente() {
+  if (radioVentacontado.checked) {
+    inputBuscarCliente.disabled = true;
+    inputBuscarCliente.value = "";
+    inputBuscarCliente.focus();
+  } else {
+    inputBuscarCliente.disabled = false;
+    inputBuscarCliente.value = "";
+    inputBuscarCliente.focus();
+  }
 }

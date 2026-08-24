@@ -375,3 +375,43 @@ legend {
   display: flex;
   flex-direction: column;
 }
+
+/* ==========================
+   MODAL TIPO VENTA
+========================== */
+
+#modalVenta {
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 40px;
+  border: 1px solid var(--white-bg3);
+  border-radius: 10px;
+}
+
+#modalVenta::backdrop {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+#venta-contado,
+#venta-credito {
+  width: auto;
+}
+
+#tipo-venta {
+  margin-bottom: 20px;
+}
+
+#buscar-cliente,
+#input-buscar-cliente {
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: var(--blue-btn);
+  text-align: center;
+  margin-bottom: 30px;
+}

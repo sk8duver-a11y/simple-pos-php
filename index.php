@@ -40,7 +40,8 @@ include "session.php";
                     <button id="cancelar-venta" class="btn-eliminar">Cancelar Venta</button>
                 </div>
                 <div class="detalles-venta">
-                    <button id="registrar-venta" class="btn-agregar">Registrar Venta</button>
+                    <!--<button id="registrar-venta" class="btn-agregar">Registrar Venta</button>-->
+                    <button onclick="modalVenta.showModal()" class="btn-agregar">Vender</button>
                 </div>
             </div>
             <table>
@@ -61,6 +62,26 @@ include "session.php";
 
         </section>
     </main>
+
+    <dialog id="modalVenta">
+        <h2>Tipo Venta</h2>
+        <div id="tipo-venta">
+            <label>
+                <input type="radio" id="venta-contado" name="opcion" checked>
+                Contado
+            </label>
+            <label>
+                <input type="radio" id="venta-credito" name="opcion">
+                Crédito
+            </label>
+        </div>
+        <div id="buscar-cliente">
+            <input type="text" id="input-buscar-cliente" placeholder="Nombre cliente..." autocomplete="off" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <button onclick="modalVenta.close()" class="btn-eliminar">Cancelar</button>
+        <button id="registrar-venta" class="btn-agregar">Registrar Venta</button>
+    </dialog>
+
     <script src="assets/js/vender.js"></script>
 </body>
 
