@@ -26,7 +26,7 @@ include "session.php";
             <div id="opciones-venta">
                 <div class="detalles-venta">
                     <label>Total Venta:</label>
-                    <span id="total-venta">0</span>
+                    <span id="total-venta">$0</span>
                 </div>
                 <div class="detalles-venta">
                     <label>Cuánto pagó:</label>
@@ -34,7 +34,7 @@ include "session.php";
                 </div>
                 <div class="detalles-venta">
                     <label>Cambio:</label>
-                    <span id="cambio-dinero">0</span>
+                    <span id="cambio-dinero">$0</span>
                 </div>
                 <div class="detalles-venta">
                     <button id="cancelar-venta" class="btn-eliminar">Cancelar Venta</button>

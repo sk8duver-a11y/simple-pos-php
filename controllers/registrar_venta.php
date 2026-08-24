@@ -15,11 +15,21 @@ try {
     $idCliente = $venta["idCliente"];
     $estado = $venta["estado"];
 
-    $sql = "INSERT INTO ventas (total, tipo_venta, id_cliente, estado) VALUES (?, ?, ?, ?)";
+    if ($tipoVenta === "CONTADO") {
 
-    $stmt = $conn->prepare($sql);
+        $sql = "INSERT INTO ventas (total, tipo_venta, id_cliente, estado)
+            VALUES (?, ?, NULL, ?)";
 
-    $stmt->bind_param("isis", $total, $tipoVenta, $idCliente, $estado);
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss", $total, $tipoVenta, $estado);
+    } else {
+
+        $sql = "INSERT INTO ventas (total, tipo_venta, id_cliente, estado)
+            VALUES (?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("isis", $total, $tipoVenta, $idCliente, $estado);
+    }
 
     $stmt->execute();
 
@@ -59,7 +69,21 @@ try {
         );
 
         $stmtDetalle->execute();
+    }
 
+        if ($tipoVenta === "CONTADO") {
+
+        $sqlPago = "INSERT INTO pagos (id_venta, monto) VALUES (?, ?)";
+
+        $stmtPago = $conn->prepare($sqlPago);
+
+        $stmtPago->bind_param(
+            "ii",
+            $idVenta,
+            $total
+        );
+
+        $stmtPago->execute();
     }
 
     $conn->commit();
@@ -67,7 +91,6 @@ try {
     echo json_encode([
         "mensaje" => "Venta registrada correctamente."
     ]);
-
 } catch (Exception $e) {
 
     $conn->rollback();
@@ -75,5 +98,4 @@ try {
     echo json_encode([
         "mensaje" => "Error al registrar la venta."
     ]);
-
 }
