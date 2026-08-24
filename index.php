@@ -40,8 +40,7 @@ include "session.php";
                     <button id="cancelar-venta" class="btn-eliminar">Cancelar Venta</button>
                 </div>
                 <div class="detalles-venta">
-                    <!--<button id="registrar-venta" class="btn-agregar">Registrar Venta</button>-->
-                    <button onclick="modalVenta.showModal()" class="btn-agregar">Vender</button>
+                    <button type="button" id="btn-modal-venta" class="btn-agregar">Vender</button>
                 </div>
             </div>
             <table>
@@ -64,6 +63,7 @@ include "session.php";
     </main>
 
     <dialog id="modalVenta">
+        <button id="btn-cerrar-modal-2" class="btn-eliminar">x</button>
         <h2>Tipo Venta</h2>
         <div id="tipo-venta">
             <label>
@@ -79,7 +79,7 @@ include "session.php";
             <input type="text" id="input-buscar-cliente" placeholder="Nombre cliente..." autocomplete="off" oninput="this.value = this.value.toUpperCase()">
         </div>
         <div id="lista-clientes"></div>
-        <button onclick="modalVenta.close()" class="btn-eliminar">Cancelar</button>
+        <button type="button" id="btn-cerrar-modal" class="btn-eliminar">Cancelar</button>
         <button id="registrar-venta" class="btn-agregar">Registrar Venta</button>
     </dialog>
 

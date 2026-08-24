@@ -11,6 +11,10 @@ const radioVentacontado = document.getElementById("venta-contado");
 const radioVentacredito = document.getElementById("venta-credito");
 const inputBuscarCliente = document.getElementById("input-buscar-cliente");
 const listaClientes = document.getElementById("lista-clientes");
+const btnModalVenta = document.getElementById("btn-modal-venta");
+const btnCerrarModal = document.getElementById("btn-cerrar-modal");
+const btnCerrarModal2 = document.getElementById("btn-cerrar-modal-2");
+const modalVenta = document.getElementById("modalVenta");
 
 let idClienteSeleccionado = null;
 let totalVendido = 0;
@@ -29,7 +33,13 @@ botonRegistrarVenta.addEventListener("click", registrarVenta);
 botonLimpiar.addEventListener("click", limpiarProductoBuscado);
 radioVentacontado.addEventListener("click", mostrarBuscarCliente);
 radioVentacredito.addEventListener("click", mostrarBuscarCliente);
-inputBuscarCliente.addEventListener("input", buscarClientes);
+inputBuscarCliente.addEventListener("input", () => {
+  idClienteSeleccionado = null;
+  buscarClientes();
+});
+btnModalVenta.addEventListener("click", abrirModalVenta);
+btnCerrarModal.addEventListener("click", cerrarModalVenta);
+btnCerrarModal2.addEventListener("click", cerrarModalVenta);
 
 busquedaProducto.addEventListener("keydown", (evento) => {
   if (event.key === "Escape") {
@@ -208,8 +218,8 @@ async function registrarVenta() {
   const filas = tablaVenta.querySelectorAll("tr");
   const productos = [];
 
-  if (filas.length === 0) {
-    alert("Debe agregar al menos un producto.");
+  if (radioVentacredito.checked && !idClienteSeleccionado) {
+    alert("No se puede registrar la venta porque el cliente no existe en la base de datos.");
     return;
   }
 
@@ -232,24 +242,23 @@ async function registrarVenta() {
     productos: productos,
     tipoVenta: radioVentacontado.checked ? "CONTADO" : "CREDITO",
     idCliente: idClienteSeleccionado,
-    estado: radioVentacontado.checked ? "PAGADO" : "PENDIENTE",
+    estado: radioVentacontado.checked ? "PAGADA" : "PENDIENTE",
   };
 
-  console.log(venta);
+  const respuesta = await fetch("controllers/registrar_venta.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(venta),
+  });
 
-  // const respuesta = await fetch("controllers/registrar_venta.php", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(venta),
-  // });
+  const resultado = await respuesta.json();
 
-  // const resultado = await respuesta.json();
+  alert(resultado.mensaje);
 
-  // alert(resultado.mensaje);
-
-  // cancelarVenta();
+  cerrarModalVenta();
+  cancelarVenta();
 }
 
 function limpiarProductoBuscado() {
@@ -271,6 +280,7 @@ function mostrarBuscarCliente() {
     inputBuscarCliente.value = "";
     inputBuscarCliente.placeholder = "";
     listaClientes.style.display = "none";
+    idClienteSeleccionado = null;
   } else {
     inputBuscarCliente.disabled = false;
     inputBuscarCliente.value = "";
@@ -320,4 +330,25 @@ function seleccionarCliente (cliente) {
   inputBuscarCliente.value = cliente.nombre;
   listaClientes.style.display = "none";
   idClienteSeleccionado = cliente.id_cliente;
+}
+
+function abrirModalVenta () {
+const filas = tablaVenta.querySelectorAll("tr");
+
+if (filas.length === 0) {
+    alert("Debe agregar al menos un producto.");
+    return;
+  } else {
+    modalVenta.showModal();
+    radioVentacontado.checked = true;
+    inputBuscarCliente.disabled = true;
+    inputBuscarCliente.value = "";
+    inputBuscarCliente.placeholder = "";
+    listaClientes.style.display = "none";
+    idClienteSeleccionado = null;
+  }
+}
+
+function cerrarModalVenta () {
+  modalVenta.close();
 }

@@ -11,12 +11,15 @@ try {
     $venta = json_decode($contenido, true);
 
     $total = $venta["total"];
+    $tipoVenta = $venta["tipoVenta"];
+    $idCliente = $venta["idCliente"];
+    $estado = $venta["estado"];
 
-    $sql = "INSERT INTO ventas (total) VALUES (?)";
+    $sql = "INSERT INTO ventas (total, tipo_venta, id_cliente, estado) VALUES (?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("i", $total);
+    $stmt->bind_param("isis", $total, $tipoVenta, $idCliente, $estado);
 
     $stmt->execute();
 
