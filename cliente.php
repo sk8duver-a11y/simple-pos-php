@@ -13,37 +13,62 @@
 
     <main>
         <section id="datos-cliente">
-            <fieldset>
-                <legend>Cliente</legend>
-
-                <div class="info-datos-cliente">
-                    <label>Nombre:</label>
-                    <p id="txt-cliente"></p>
+            <div class="datos-personales">
+                <div class="tarjeta-resumen">
+                    <span class="titulo-resumen">Nombre</span>
+                    <strong id="txt-cliente" class="valor-resumen"></strong>
                 </div>
-                <div class="info-datos-cliente">
-                    <label>Celular:</label>
-                    <p id="txt-celular"></p>
+                <div class="tarjeta-resumen">
+                    <span class="titulo-resumen">Celular</span>
+                    <strong id="txt-celular" class="valor-resumen"></strong>
                 </div>
-                <div class="info-datos-cliente">
-                    <label>Correo:</label>
-                    <p id="txt-correo"></p>
+                <div class="tarjeta-resumen">
+                    <span class="titulo-resumen">Correo</span>
+                    <strong id="txt-correo" class="valor-resumen"></strong>
                 </div>
-
-            </fieldset>
-        </section>
-        <section id="detalles-cliente">
-            <div class="info-datos-cliente">
-                <label>Saldo pendiente:</label>
-                <p id="txt-saldo-pendiente"></p>
+                <div class="tarjeta-resumen">
+                    <span class="titulo-resumen">Saldo pendiente</span>
+                    <strong id="txt-correo" class="valor-resumen">$0<strong>
+                </div>
             </div>
-            <div class="info-datos-cliente">
-                <button type="button" class="btn-cancelar">Abonar</button>
-            </div>
-            <div class="info-datos-cliente">
+            <div id="detalles-cliente">
+                <button type="button" class="btn-editar">Abonar</button>
                 <button type="button" class="btn-agregar">Liquidar</button>
+                <button type="button" class="btn-cancelar">Ventas Pendientes</button>
+                <button type="button" class="btn-cancelar">Historial Ventas</button>
+                <button type="button" class="btn-cancelar">Historial Pagos</button>
             </div>
-        </section>
 
+            <table id="tabla-ventas-pendientes">
+                <thead>
+                    <tr>
+                        <th>Venta</th>
+                        <th>Hora</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="ventas-pendientes">
+                    <!-- Aquí se agregarán las ventas pendientes -->
+                </tbody>
+            </table>
+
+            <table id="tabla-historial-ventas">
+                <thead>
+                    <tr>
+                        <th>Venta</th>
+                        <th>Hora</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="historial ventas">
+                    <!-- Aquí se agregará el historial de ventas -->
+                </tbody>
+            </table>
+        </section>
     </main>
 
 </body>

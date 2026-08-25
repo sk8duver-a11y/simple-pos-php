@@ -87,8 +87,6 @@ main {
 #section-busqueda-producto,
 #section-ganancia,
 #agregar-cliente,
-#datos-cliente,
-#detalles-cliente,
 fieldset {
   width: 100%;
   display: flex;
@@ -139,6 +137,7 @@ input:focus {
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
+  margin: 0 5px 0 5px;
 }
 
 .btn-cancelar {
@@ -150,6 +149,7 @@ input:focus {
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
+  margin: 0 5px 0 5px;
 }
 
 .btn-agregar:hover,
@@ -218,6 +218,7 @@ tr:hover {
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  margin: 0 5px 0 5px;
 }
 
 .btn-editar:hover,
@@ -441,20 +442,44 @@ h2 {
 }
 
 /* ==========================
-   MODAL TIPO VENTA
+   CLIENTE
 ========================== */
+
+#datos-cliente {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-bg1);
+  border: 1px solid var(--white-bg3);
+  border-radius: 10px;
+  padding: 20px;
+  height: 100vh;
+  overflow: auto;
+}
+
+.datos-personales {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
 #txt-cliente,
 #txt-celular,
 #txt-correo {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: var(--black);
-  font-weight: bold;
+  font-size: 20px;
 }
 
-.info-datos-cliente {
+#detalles-cliente{
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
   width: 100%;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+#tabla-ventas-pendientes,
+#tabla-historial-ventas {
+  display: none;
 }
