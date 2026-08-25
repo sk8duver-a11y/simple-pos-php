@@ -93,6 +93,12 @@ function listarClientes(busqueda = "") {
         btnVerCliente.dataset.id_cliente = cliente.id_cliente;
         btnVerCliente.classList.add("btn-agregar");
 
+        btnVerCliente.addEventListener("click", function () {
+          const idCliente = btnVerCliente.dataset.id_cliente;
+
+          window.location.href = `cliente.php?id=${idCliente}`;
+        });
+
         const btnEditar = document.createElement("button");
         btnEditar.textContent = "Editar";
         btnEditar.dataset.id_cliente = cliente.id_cliente;

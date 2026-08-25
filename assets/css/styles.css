@@ -87,6 +87,8 @@ main {
 #section-busqueda-producto,
 #section-ganancia,
 #agregar-cliente,
+#datos-cliente,
+#detalles-cliente,
 fieldset {
   width: 100%;
   display: flex;
@@ -262,7 +264,7 @@ tr:hover {
   cursor: pointer;
 }
 
-.item-producto:hover, 
+.item-producto:hover,
 .item-cliente:hover {
   background-color: #f0f0f0;
 }
@@ -436,4 +438,23 @@ h2 {
   top: 10px;
   right: 10px;
   z-index: 1;
+}
+
+/* ==========================
+   MODAL TIPO VENTA
+========================== */
+#txt-cliente,
+#txt-celular,
+#txt-correo {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: var(--black);
+  font-weight: bold;
+}
+
+.info-datos-cliente {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
