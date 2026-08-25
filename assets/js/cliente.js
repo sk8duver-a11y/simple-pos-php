@@ -18,4 +18,18 @@ function obtenerCliente() {
     });
 }
 
+function obtenerVentasPendientes() {
+
+    fetch(`controllers/obtener_ventas_pendientes_cliente.php?id=${idCliente}`)
+
+        .then((respuesta) => respuesta.json())
+
+        .then((ventas) => {
+
+            console.log(ventas);
+
+        });
+}
+
 obtenerCliente();
+obtenerVentasPendientes();

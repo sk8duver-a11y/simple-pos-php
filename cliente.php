@@ -28,7 +28,7 @@
                 </div>
                 <div class="tarjeta-resumen">
                     <span class="titulo-resumen">Saldo pendiente</span>
-                    <strong id="txt-correo" class="valor-resumen">$0<strong>
+                    <strong id="txt-saldo" class="valor-resumen">$0</strong>
                 </div>
             </div>
             <div id="detalles-cliente">
@@ -43,7 +43,7 @@
                 <thead>
                     <tr>
                         <th>Venta</th>
-                        <th>Hora</th>
+                        <th>Fecha</th>
                         <th>Productos</th>
                         <th>Total</th>
                         <th>Acciones</th>
@@ -58,13 +58,13 @@
                 <thead>
                     <tr>
                         <th>Venta</th>
-                        <th>Hora</th>
+                        <th>Fecha</th>
                         <th>Productos</th>
                         <th>Total</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="historial ventas">
+                <tbody id="historial-ventas">
                     <!-- Aquí se agregará el historial de ventas -->
                 </tbody>
             </table>
