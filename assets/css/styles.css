@@ -160,7 +160,8 @@ input:focus {
 #tabla-productos,
 #tabla-venta-productos,
 #section-ventas-dia,
-#tabla-clientes {
+#tabla-clientes,
+#tabla-ventas-pendientes {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -385,7 +386,8 @@ legend {
    MODAL TIPO VENTA
 ========================== */
 
-#modalVenta {
+#modalVenta,
+#modal-detalle-venta {
   margin: 20px auto;
   position: fixed;
   top: 0;
@@ -453,8 +455,6 @@ h2 {
   border: 1px solid var(--white-bg3);
   border-radius: 10px;
   padding: 20px;
-  height: 100vh;
-  overflow: auto;
 }
 
 .datos-personales {
@@ -476,10 +476,9 @@ h2 {
   justify-content: center;
   width: 100%;
   gap: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
-#tabla-ventas-pendientes,
-#tabla-historial-ventas {
+#tabla-ventas-pendientes {
   display: none;
 }

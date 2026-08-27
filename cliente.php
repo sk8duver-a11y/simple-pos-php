@@ -38,12 +38,15 @@
                 <button type="button" class="btn-cancelar">Historial Ventas</button>
                 <button type="button" class="btn-cancelar">Historial Pagos</button>
             </div>
+        </section>
 
-            <table id="tabla-ventas-pendientes">
+        <section id="tabla-ventas-pendientes">
+
+            <table>
                 <thead>
                     <tr>
                         <th>Venta</th>
-                        <th>Fecha</th>
+                        <th>Fecha/Hora</th>
                         <th>Productos</th>
                         <th>Total</th>
                         <th>Acciones</th>
@@ -53,24 +56,26 @@
                     <!-- Aquí se agregarán las ventas pendientes -->
                 </tbody>
             </table>
-
-            <table id="tabla-historial-ventas">
-                <thead>
-                    <tr>
-                        <th>Venta</th>
-                        <th>Fecha</th>
-                        <th>Productos</th>
-                        <th>Total</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="historial-ventas">
-                    <!-- Aquí se agregará el historial de ventas -->
-                </tbody>
-            </table>
         </section>
     </main>
 
+    <dialog id="modal-detalle-venta">
+        <button id="btn-cerrar-modal-2" class="btn-eliminar">x</button>
+        <label id="txt-id-venta"></label>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio venta</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cliente-detalle-venta">
+            </tbody>
+            <label>Total Venta</label>
+            <span id="txt-total-venta"></span>
+    </dialog>
 </body>
 
 <script src="assets/js/cliente.js"></script>
