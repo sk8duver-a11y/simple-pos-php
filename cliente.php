@@ -61,7 +61,15 @@
 
     <dialog id="modal-detalle-venta">
         <button id="btn-cerrar-modal-2" class="btn-eliminar">x</button>
-        <label id="txt-id-venta"></label>
+        <div id="modal-header">
+            <div>
+                <label id="txt-id-venta"></label>
+            </div>
+            <div>
+                <label>Total Venta</label>
+                <span id="txt-total-venta"></span>
+            </div>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -73,8 +81,7 @@
             </thead>
             <tbody id="cliente-detalle-venta">
             </tbody>
-            <label>Total Venta</label>
-            <span id="txt-total-venta"></span>
+        </table>
     </dialog>
 </body>
 

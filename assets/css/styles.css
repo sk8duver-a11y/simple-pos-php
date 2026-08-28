@@ -470,7 +470,7 @@ h2 {
   font-size: 20px;
 }
 
-#detalles-cliente{
+#detalles-cliente {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -481,4 +481,12 @@ h2 {
 
 #tabla-ventas-pendientes {
   display: none;
+}
+
+#modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
