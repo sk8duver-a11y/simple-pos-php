@@ -8,11 +8,17 @@ const ventasPendientes = document.getElementById("ventas-pendientes");
 const tablaVentasPendientes = document.getElementById(
   "tabla-ventas-pendientes",
 );
+const historialVentas = document.getElementById("historial-ventas");
+const tablaHistorialVentasPendientes = document.getElementById(
+  "tabla-historial-ventas-pendientes",
+);
 const modalDetalleVenta = document.getElementById("modal-detalle-venta");
 const btnCerrarModalDetalle = document.getElementById("btn-cerrar-modal-2");
 const clienteDetalleVenta = document.getElementById("cliente-detalle-venta");
 const txtIdVenta = document.getElementById("txt-id-venta");
 const txtTotalVenta = document.getElementById("txt-total-venta");
+const btnHistorialVentas = document.getElementById("btn-historial-ventas");
+const btnVentasPendientes = document.getElementById("btn-ventas-pendientes");
 
 btnCerrarModalDetalle.addEventListener("click", cerrarModalDetalle);
 
@@ -78,6 +84,55 @@ function mostrarVentasPendientes(ventas) {
   txtSaldo.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
 }
 
+function obtenerHistorialVentas() {
+  fetch(`controllers/obtener_historial_ventas_cliente.php?id=${idCliente}`)
+    .then((respuesta) => respuesta.json())
+    .then((ventas) => {
+      console.log(ventas);
+      mostrarHistorialVentas(ventas);
+    });
+}
+
+function mostrarHistorialVentas(ventas) {
+  historialVentas.innerHTML = "";
+
+  ventas.forEach((venta) => {
+    let claseEstado = "";
+
+    if (venta.estado === "PENDIENTE") {
+      claseEstado = "estado-pendiente";
+    } else if (venta.estado === "PAGADA") {
+      claseEstado = "estado-pagada";
+    }
+
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+            <td>${venta.id_venta}</td>
+            <td>${venta.fecha}</td>
+            <td>${venta.productos}</td>
+            <td>$${Number(venta.total).toLocaleString("es-CO")}</td>
+            <td>
+                <span class="estado ${claseEstado}">${venta.estado}</span>
+            </td>
+            <td></td>
+        `;
+
+    const btnDetalle = document.createElement("button");
+    btnDetalle.textContent = "Ver detalle";
+    btnDetalle.dataset.idVenta = venta.id_venta;
+    btnDetalle.classList.add("btn-cancelar");
+
+    btnDetalle.addEventListener("click", function () {
+      const idVenta = btnDetalle.dataset.idVenta;
+      obtenerDetalleVenta(idVenta);
+    });
+
+    fila.lastElementChild.appendChild(btnDetalle);
+    historialVentas.appendChild(fila);
+  });
+}
+
 function obtenerDetalleVenta(idVenta) {
   fetch(`controllers/obtener_detalle_venta.php?idVenta=${idVenta}`)
     .then((respuesta) => respuesta.json())
@@ -105,9 +160,20 @@ function obtenerDetalleVenta(idVenta) {
     });
 }
 
+btnHistorialVentas.addEventListener("click", function () {
+  tablaVentasPendientes.style.display = "none";
+  tablaHistorialVentasPendientes.style.display = "flex";
+});
+
+btnVentasPendientes.addEventListener("click", function () {
+  tablaHistorialVentasPendientes.style.display = "none";
+  tablaVentasPendientes.style.display = "flex";
+});
+
 function cerrarModalDetalle() {
   modalDetalleVenta.close();
 }
 
 obtenerCliente();
 obtenerVentasPendientes();
+obtenerHistorialVentas();

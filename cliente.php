@@ -34,14 +34,13 @@
             <div id="detalles-cliente">
                 <button type="button" class="btn-editar">Abonar</button>
                 <button type="button" class="btn-agregar">Liquidar</button>
-                <button type="button" class="btn-cancelar">Ventas Pendientes</button>
-                <button type="button" class="btn-cancelar">Historial Ventas</button>
+                <button type="button" id="btn-ventas-pendientes" class="btn-cancelar">Ventas Pendientes</button>
+                <button type="button" id="btn-historial-ventas" class="btn-cancelar">Historial Ventas</button>
                 <button type="button" class="btn-cancelar">Historial Pagos</button>
             </div>
         </section>
 
         <section id="tabla-ventas-pendientes">
-
             <table>
                 <thead>
                     <tr>
@@ -53,6 +52,24 @@
                     </tr>
                 </thead>
                 <tbody id="ventas-pendientes">
+                    <!-- Aquí se agregarán las ventas pendientes -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="tabla-historial-ventas-pendientes">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Venta</th>
+                        <th>Fecha/Hora</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="historial-ventas">
                     <!-- Aquí se agregarán las ventas pendientes -->
                 </tbody>
             </table>
