@@ -162,7 +162,8 @@ input:focus {
 #section-ventas-dia,
 #tabla-clientes,
 #tabla-ventas-pendientes,
-#tabla-historial-ventas-pendientes {
+#tabla-historial-ventas-pendientes,
+#tabla-historial-pagos {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -388,7 +389,8 @@ legend {
 ========================== */
 
 #modalVenta,
-#modal-detalle-venta {
+#modal-detalle-venta,
+#modal-abono {
   margin: 20px auto;
   position: fixed;
   top: 0;
@@ -437,7 +439,8 @@ h2 {
   z-index: 1000;
 }
 
-#btn-cerrar-modal-2 {
+#btn-cerrar-modal-2,
+#btn-cerrar-abono {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -481,7 +484,8 @@ h2 {
 }
 
 #tabla-ventas-pendientes,
-#tabla-historial-ventas-pendientes {
+#tabla-historial-ventas-pendientes,
+#tabla-historial-pagos {
   display: none;
 }
 
@@ -509,4 +513,11 @@ h2 {
 .estado-pagada {
   background-color: var(--gree-btn);
   color: var(--white-bg1);
+}
+
+#modal-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }

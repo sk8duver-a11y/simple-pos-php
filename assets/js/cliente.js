@@ -12,6 +12,8 @@ const historialVentas = document.getElementById("historial-ventas");
 const tablaHistorialVentasPendientes = document.getElementById(
   "tabla-historial-ventas-pendientes",
 );
+const historialPagos = document.getElementById("historial-pagos");
+const tablaHistorialPagos = document.getElementById("tabla-historial-pagos");
 const modalDetalleVenta = document.getElementById("modal-detalle-venta");
 const btnCerrarModalDetalle = document.getElementById("btn-cerrar-modal-2");
 const clienteDetalleVenta = document.getElementById("cliente-detalle-venta");
@@ -19,15 +21,29 @@ const txtIdVenta = document.getElementById("txt-id-venta");
 const txtTotalVenta = document.getElementById("txt-total-venta");
 const btnHistorialVentas = document.getElementById("btn-historial-ventas");
 const btnVentasPendientes = document.getElementById("btn-ventas-pendientes");
+const btnHistorialPagos = document.getElementById("btn-historial-pagos");
+const btnAbonar = document.getElementById("btn-abonar");
+const modalAbono = document.getElementById("modal-abono");
+const inputAbono = document.getElementById("input-abono");
+const saldoAbono = document.getElementById("saldo-abono");
+const btnCerrarAbono = document.getElementById("btn-cerrar-abono");
+const btnCancelarAbono = document.getElementById("btn-cancelar-abono");
+const btnConfirmarAbono = document.getElementById("btn-confirmar-abono");
+
+let saldoTotal = 0;
 
 btnCerrarModalDetalle.addEventListener("click", cerrarModalDetalle);
+
+function formatearFecha(fecha) {
+  const [fechaParte, horaParte] = fecha.split(" ");
+  const [anio, mes, dia] = fechaParte.split("-");
+  return `${dia}/${mes}/${anio} ${horaParte}`;
+}
 
 function obtenerCliente() {
   fetch(`controllers/obtener_cliente.php?id=${idCliente}`)
     .then((respuesta) => respuesta.json())
-
     .then((cliente) => {
-      console.log(cliente);
       txtCliente.textContent = cliente.nombre;
       txtCelular.textContent = cliente.celular;
       txtCorreo.textContent = cliente.correo;
@@ -37,18 +53,14 @@ function obtenerCliente() {
 function obtenerVentasPendientes() {
   fetch(`controllers/obtener_ventas_pendientes_cliente.php?id=${idCliente}`)
     .then((respuesta) => respuesta.json())
-
     .then((ventas) => {
-      console.log(ventas);
-      console.log(ventas.length);
       mostrarVentasPendientes(ventas);
     });
 }
 
 function mostrarVentasPendientes(ventas) {
   ventasPendientes.innerHTML = "";
-
-  let saldoTotal = 0;
+  saldoTotal = 0;
 
   if (ventas.length > 0) {
     tablaVentasPendientes.style.display = "flex";
@@ -61,7 +73,7 @@ function mostrarVentasPendientes(ventas) {
 
     fila.innerHTML = `
             <td>${venta.id_venta}</td>
-            <td>${venta.fecha}</td>
+            <td>${formatearFecha(venta.fecha)}</td>
             <td>${venta.productos}</td>
             <td>$${Number(venta.total).toLocaleString("es-CO")}</td>
             <td></td>
@@ -88,7 +100,6 @@ function obtenerHistorialVentas() {
   fetch(`controllers/obtener_historial_ventas_cliente.php?id=${idCliente}`)
     .then((respuesta) => respuesta.json())
     .then((ventas) => {
-      console.log(ventas);
       mostrarHistorialVentas(ventas);
     });
 }
@@ -109,7 +120,7 @@ function mostrarHistorialVentas(ventas) {
 
     fila.innerHTML = `
             <td>${venta.id_venta}</td>
-            <td>${venta.fecha}</td>
+            <td>${formatearFecha(venta.fecha)}</td>
             <td>${venta.productos}</td>
             <td>$${Number(venta.total).toLocaleString("es-CO")}</td>
             <td>
@@ -137,7 +148,6 @@ function obtenerDetalleVenta(idVenta) {
   fetch(`controllers/obtener_detalle_venta.php?idVenta=${idVenta}`)
     .then((respuesta) => respuesta.json())
     .then((productos) => {
-      console.log(productos);
       modalDetalleVenta.showModal();
 
       txtIdVenta.textContent = "Venta #" + idVenta;
@@ -160,20 +170,106 @@ function obtenerDetalleVenta(idVenta) {
     });
 }
 
+function obtenerHistorialPagos() {
+  fetch(`controllers/obtener_historial_pagos_cliente.php?id=${idCliente}`)
+    .then((respuesta) => respuesta.json())
+    .then((pagos) => {
+      mostrarHistorialPagos(pagos);
+    });
+}
+
+function mostrarHistorialPagos(pagos) {
+  historialPagos.innerHTML = "";
+
+  pagos.forEach((pago) => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+            <td>${formatearFecha(pago.fecha)}</td>
+            <td>$${Number(pago.monto).toLocaleString("es-CO")}</td>
+        `;
+
+    historialPagos.appendChild(fila);
+  });
+}
+
 btnHistorialVentas.addEventListener("click", function () {
   tablaVentasPendientes.style.display = "none";
+  tablaHistorialPagos.style.display = "none";
   tablaHistorialVentasPendientes.style.display = "flex";
 });
 
 btnVentasPendientes.addEventListener("click", function () {
   tablaHistorialVentasPendientes.style.display = "none";
+  tablaHistorialPagos.style.display = "none";
   tablaVentasPendientes.style.display = "flex";
+});
+
+btnHistorialPagos.addEventListener("click", function () {
+  tablaHistorialVentasPendientes.style.display = "none";
+  tablaVentasPendientes.style.display = "none";
+  tablaHistorialPagos.style.display = "flex";
 });
 
 function cerrarModalDetalle() {
   modalDetalleVenta.close();
 }
 
+btnAbonar.addEventListener("click", function () {
+  saldoAbono.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
+
+  inputAbono.value = "";
+  modalAbono.showModal();
+  inputAbono.focus();
+});
+
+btnCerrarAbono.addEventListener("click", function () {
+  modalAbono.close();
+});
+
+btnCancelarAbono.addEventListener("click", function () {
+  modalAbono.close();
+});
+
+btnConfirmarAbono.addEventListener("click", function () {
+  const monto = Number(inputAbono.value);
+
+  if (monto <= 0) {
+    alert("Ingrese un monto válido.");
+    inputAbono.focus();
+    return;
+  }
+
+  if (monto > saldoTotal) {
+    alert("El abono no puede ser mayor al saldo pendiente.");
+    inputAbono.focus();
+    return;
+  }
+
+  const datos = new FormData();
+
+  datos.append("idCliente", idCliente);
+  datos.append("monto", monto);
+
+  fetch("controllers/registrar_abono.php", {
+    method: "POST",
+    body: datos,
+  })
+    .then((respuesta) => respuesta.json())
+    .then((resultado) => {
+      if (resultado.success) {
+        alert(resultado.mensaje);
+        modalAbono.close();
+        obtenerVentasPendientes();
+        obtenerHistorialVentas();
+        obtenerHistorialPagos();
+      } else {
+        alert(resultado.mensaje);
+      }
+    });
+});
+
 obtenerCliente();
 obtenerVentasPendientes();
 obtenerHistorialVentas();
+obtenerHistorialPagos();

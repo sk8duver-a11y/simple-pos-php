@@ -32,11 +32,11 @@
                 </div>
             </div>
             <div id="detalles-cliente">
-                <button type="button" class="btn-editar">Abonar</button>
+                <button type="button" id="btn-abonar" class="btn-editar">Abonar</button>
                 <button type="button" class="btn-agregar">Liquidar</button>
                 <button type="button" id="btn-ventas-pendientes" class="btn-cancelar">Ventas Pendientes</button>
                 <button type="button" id="btn-historial-ventas" class="btn-cancelar">Historial Ventas</button>
-                <button type="button" class="btn-cancelar">Historial Pagos</button>
+                <button type="button" id="btn-historial-pagos" class="btn-cancelar">Historial Pagos</button>
             </div>
         </section>
 
@@ -74,6 +74,20 @@
                 </tbody>
             </table>
         </section>
+
+        <section id="tabla-historial-pagos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody id="historial-pagos">
+                    <!-- Aquí se agregarán las ventas pendientes -->
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <dialog id="modal-detalle-venta">
@@ -99,6 +113,19 @@
             <tbody id="cliente-detalle-venta">
             </tbody>
         </table>
+    </dialog>
+
+    <dialog id="modal-abono">
+        <button type="button" id="btn-cerrar-abono" class="btn-eliminar">X</button>
+        <div id="modal-contenido">
+            <h2>Realizar abono</h2>
+            <label>Saldo pendiente:<span id="saldo-abono">$0</span></label>
+            <input type="number" id="input-abono" min="1" step="1" placeholder="Valor a abonar">
+            <div>
+                <button type="button" id="btn-cancelar-abono" class="btn-eliminar">Cancelar</button>
+                <button type="button" id="btn-confirmar-abono" class="btn-agregar">Abonar</button>
+            </div>
+        </div>
     </dialog>
 </body>
 
