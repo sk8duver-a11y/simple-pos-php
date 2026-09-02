@@ -112,7 +112,7 @@ try {
 
     echo json_encode([
         "success" => true,
-        "mensaje" => "Abono registrado correctamente."
+        "mensaje" => "Pago registrado correctamente."
     ]);
 } catch (Exception $e) {
 

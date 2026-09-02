@@ -29,6 +29,12 @@ const saldoAbono = document.getElementById("saldo-abono");
 const btnCerrarAbono = document.getElementById("btn-cerrar-abono");
 const btnCancelarAbono = document.getElementById("btn-cancelar-abono");
 const btnConfirmarAbono = document.getElementById("btn-confirmar-abono");
+const btnLiquidar = document.getElementById("btn-liquidar");
+const modalLiquidar = document.getElementById("modal-liquidar");
+const btnCancelarLiquidar = document.getElementById("btn-cancelar-liquidar");
+const btnConfirmarLiquidar = document.getElementById("btn-confirmar-liquidar");
+const btnCerrarLiquidar = document.getElementById("btn-cerrar-liquidar");
+const saldoLiquidar = document.getElementById("saldo-liquidar");
 
 let saldoTotal = 0;
 
@@ -37,7 +43,7 @@ btnCerrarModalDetalle.addEventListener("click", cerrarModalDetalle);
 function formatearFecha(fecha) {
   const [fechaParte, horaParte] = fecha.split(" ");
   const [anio, mes, dia] = fechaParte.split("-");
-  return `${dia}/${mes}/${anio} ${horaParte}`;
+  return `${dia}/${mes}/${anio} - ${horaParte}`;
 }
 
 function obtenerCliente() {
@@ -218,6 +224,11 @@ function cerrarModalDetalle() {
 btnAbonar.addEventListener("click", function () {
   saldoAbono.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
 
+  if (saldoTotal <= 0) {
+    alert("No hay saldo pendiente para abonar.");
+    return;
+  }
+
   inputAbono.value = "";
   modalAbono.showModal();
   inputAbono.focus();
@@ -260,6 +271,50 @@ btnConfirmarAbono.addEventListener("click", function () {
       if (resultado.success) {
         alert(resultado.mensaje);
         modalAbono.close();
+        obtenerVentasPendientes();
+        obtenerHistorialVentas();
+        obtenerHistorialPagos();
+      } else {
+        alert(resultado.mensaje);
+      }
+    });
+});
+
+btnLiquidar.addEventListener("click", function () {
+  saldoLiquidar.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
+
+  if (saldoTotal <= 0) {
+    alert("No hay saldo pendiente para liquidar.");
+    return;
+  }
+
+  modalLiquidar.showModal();
+});
+
+btnCerrarLiquidar.addEventListener("click", function () {
+  modalLiquidar.close();
+});
+
+btnCancelarLiquidar.addEventListener("click", function () {
+  modalLiquidar.close();
+});
+
+btnConfirmarLiquidar.addEventListener("click", function () {
+  monto = saldoTotal;
+
+  const datos = new FormData();
+
+  datos.append("idCliente", idCliente);
+  datos.append("monto", monto);
+
+  fetch("controllers/registrar_abono.php", {
+    method: "POST",
+    body: datos,
+  })
+    .then((respuesta) => respuesta.json())
+    .then((resultado) => {
+      if (resultado.success) {
+        modalLiquidar.close();
         obtenerVentasPendientes();
         obtenerHistorialVentas();
         obtenerHistorialPagos();

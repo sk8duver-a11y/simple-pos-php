@@ -390,7 +390,8 @@ legend {
 
 #modalVenta,
 #modal-detalle-venta,
-#modal-abono {
+#modal-abono,
+#modal-liquidar {
   margin: 20px auto;
   position: fixed;
   top: 0;
@@ -440,7 +441,8 @@ h2 {
 }
 
 #btn-cerrar-modal-2,
-#btn-cerrar-abono {
+#btn-cerrar-abono,
+#btn-cerrar-liquidar {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -515,7 +517,7 @@ h2 {
   color: var(--white-bg1);
 }
 
-#modal-contenido {
+.modal-contenido {
   display: flex;
   flex-direction: column;
   gap: 20px;

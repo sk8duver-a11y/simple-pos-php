@@ -33,7 +33,7 @@
             </div>
             <div id="detalles-cliente">
                 <button type="button" id="btn-abonar" class="btn-editar">Abonar</button>
-                <button type="button" class="btn-agregar">Liquidar</button>
+                <button type="button" id="btn-liquidar" class="btn-agregar">Liquidar</button>
                 <button type="button" id="btn-ventas-pendientes" class="btn-cancelar">Ventas Pendientes</button>
                 <button type="button" id="btn-historial-ventas" class="btn-cancelar">Historial Ventas</button>
                 <button type="button" id="btn-historial-pagos" class="btn-cancelar">Historial Pagos</button>
@@ -117,13 +117,26 @@
 
     <dialog id="modal-abono">
         <button type="button" id="btn-cerrar-abono" class="btn-eliminar">X</button>
-        <div id="modal-contenido">
+        <div class="modal-contenido">
             <h2>Realizar abono</h2>
             <label>Saldo pendiente:<span id="saldo-abono">$0</span></label>
             <input type="number" id="input-abono" min="1" step="1" placeholder="Valor a abonar">
             <div>
                 <button type="button" id="btn-cancelar-abono" class="btn-eliminar">Cancelar</button>
                 <button type="button" id="btn-confirmar-abono" class="btn-agregar">Abonar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="modal-liquidar">
+        <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button>
+        <div class="modal-contenido">
+            <h2>Liquidar cuenta</h2>
+            <label>Saldo pendiente:<span id="saldo-liquidar">$0</span></label>
+            <label>¿Seguro que desea liquidar el cliente?</label>
+            <div>
+                <button type="button" id="btn-cancelar-liquidar" class="btn-eliminar">Cancelar</button>
+                <button type="button" id="btn-confirmar-liquidar" class="btn-agregar">Liquidar</button>
             </div>
         </div>
     </dialog>
