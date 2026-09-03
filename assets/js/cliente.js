@@ -192,6 +192,7 @@ function mostrarHistorialPagos(pagos) {
 
     fila.innerHTML = `
             <td>${formatearFecha(pago.fecha)}</td>
+            <td>${pago.id_venta}</td>
             <td>$${Number(pago.monto).toLocaleString("es-CO")}</td>
         `;
 
@@ -300,7 +301,7 @@ btnCancelarLiquidar.addEventListener("click", function () {
 });
 
 btnConfirmarLiquidar.addEventListener("click", function () {
-  monto = saldoTotal;
+  const monto = saldoTotal;
 
   const datos = new FormData();
 

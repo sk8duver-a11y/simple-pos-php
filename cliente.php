@@ -80,6 +80,7 @@
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th># Venta</th>
                         <th>Monto</th>
                     </tr>
                 </thead>
