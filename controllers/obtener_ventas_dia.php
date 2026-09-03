@@ -117,12 +117,21 @@ $cantidadVentas = (int) $datosCantidadVentas["cantidad_ventas"];
 $sqlVentas = "
     SELECT
         v.id_venta,
-        v.fecha,
+        DATE_FORMAT(v.fecha, '%H:%i') AS hora,
+        COUNT(d.id_detalle) AS productos,
         v.total,
         v.tipo_venta,
         v.estado
     FROM ventas v
+    INNER JOIN detalle_venta d
+        ON v.id_venta = d.id_venta
     WHERE DATE(v.fecha) = ?
+    GROUP BY
+        v.id_venta,
+        v.fecha,
+        v.total,
+        v.tipo_venta,
+        v.estado
     ORDER BY v.fecha DESC
 ";
 
@@ -138,7 +147,8 @@ while ($venta = $resultadoVentas->fetch_assoc()) {
 
     $ventas[] = [
         "id_venta" => (int) $venta["id_venta"],
-        "fecha" => $venta["fecha"],
+        "hora" => $venta["hora"],
+        "productos" => (int) $venta["productos"],
         "total" => (int) $venta["total"],
         "tipo_venta" => $venta["tipo_venta"],
         "estado" => $venta["estado"]
