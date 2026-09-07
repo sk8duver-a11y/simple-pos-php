@@ -67,6 +67,14 @@ include "session.php";
 
     </main>
 
+    <dialog id="modal-alerta">
+        <!-- <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button> -->
+        <div id="modal-alerta-contenido">
+            <label id="mensaje-alerta"></label>
+            <button type="button" class="btn-cancelar" onclick="modalAlerta.close()">Aceptar</button>
+        </div>
+    </dialog>
+
     <script src="assets/js/productos.js"></script>
 </body>
 

@@ -12,7 +12,7 @@ $precio_compra = trim($datos['precioCompra']);
 $precio_venta = trim($datos['precioVenta']);
 
 if ($codigo_barras === "" || $nombre === "" || $precio_compra === "" || $precio_venta === "") {
-    echo "Todos los campos son obligatorios.";
+    echo json_encode(["mensaje" => "Todos los campos son obligatorios."]);
     exit;
 }
 
@@ -30,7 +30,7 @@ if ($resultado->num_rows > 0) {
 
     // El producto ya existe y está activo
     if ($producto["estado"] == 1) {
-        echo "El producto ya existe.";
+        echo json_encode(["mensaje" => "El producto ya existe."]);
         exit;
     }
 
@@ -42,9 +42,9 @@ if ($resultado->num_rows > 0) {
     $stmt->bind_param("siii", $nombre, $precio_compra, $precio_venta, $producto["id_producto"]);
 
     if ($stmt->execute()) {
-        echo "Producto reactivado correctamente.";
+        echo json_encode(["mensaje" => "Producto reactivado correctamente."]);
     } else {
-        echo "Error al reactivar el producto.";
+        echo json_encode(["mensaje" => "Error al reactivar el producto."]);
     }
     exit;
 }
@@ -57,7 +57,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssii", $codigo_barras, $nombre, $precio_compra, $precio_venta);
 
 if ($stmt->execute()) {
-    echo "Producto agregado correctamente.";
+    echo json_encode(["mensaje" => "Producto agregado correctamente."]);
 } else {
-    echo "Error al agregar el producto.";
+    echo json_encode(["mensaje" => "Error al agregar el producto."]);
 }

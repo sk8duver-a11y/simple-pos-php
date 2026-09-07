@@ -3,6 +3,8 @@ const tablaProductos = document.getElementById("productos-registrados");
 const botonGuardar = document.getElementById("btn-agregar-producto");
 const botonCancelar = document.getElementById("cancelar");
 const buscarProducto = document.getElementById("buscar-producto");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 let idEditar = null;
 let listaProductos = [];
@@ -42,15 +44,15 @@ formularioProductos.addEventListener("submit", function (event) {
     },
     body: JSON.stringify(datos),
   })
-    .then((respuesta) => respuesta.text())
+    .then((respuesta) => respuesta.json())
     .then((resultado) => {
-      console.log(resultado);
-      alert(resultado);
+      modalAlerta.showModal();
+      mensajeAlerta.textContent = resultado.mensaje;
 
       if (
-        resultado === "Producto agregado correctamente." ||
-        resultado === "Producto reactivado correctamente." ||
-        resultado === "Producto actualizado correctamente."
+        resultado.mensaje === "Producto agregado correctamente." ||
+        resultado.mensaje === "Producto reactivado correctamente." ||
+        resultado.mensaje === "Producto actualizado correctamente."
       ) {
         formularioProductos.reset();
         idEditar = null;
