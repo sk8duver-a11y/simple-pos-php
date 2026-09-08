@@ -15,7 +15,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_producto);
 
 if ($stmt->execute()) {
-    echo "Producto eliminado correctamente.";
+    echo json_encode(["mensaje" => "Producto eliminado correctamente."]);
 } else {
-    echo "Error al eliminar el producto";
+    echo json_encode(["mensaje" => "Error al eliminar el producto."]);
 }

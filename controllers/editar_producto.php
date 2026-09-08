@@ -7,7 +7,7 @@ $contenido = file_get_contents("php://input");
 $datos = json_decode($contenido, true);
 
 $id_producto = $datos['idProducto'];
-$codigo_barras =$datos['codigoBarras'];
+$codigo_barras = $datos['codigoBarras'];
 $nombre = $datos['nombre'];
 $precio_compra = $datos['precioCompra'];
 $precio_venta = $datos['precioVenta'];
@@ -19,7 +19,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssddi", $codigo_barras, $nombre, $precio_compra, $precio_venta, $id_producto);
 
 if ($stmt->execute()) {
-    echo "Producto actualizado correctamente.";
+    echo json_encode(["mensaje" => "Producto actualizado correctamente."]);
 } else {
-    echo "Error al actualizar el producto";
+    echo json_encode(["mensaje" => "Error al actualizar el producto."]);
 }

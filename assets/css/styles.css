@@ -391,19 +391,9 @@ legend {
 #modalVenta,
 #modal-detalle-venta,
 #modal-abono,
-#modal-liquidar {
-  margin: 20px auto;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 30px 40px;
-  border: 1px solid var(--white-bg3);
-  border-radius: 10px;
-}
-
-#modal-alerta {
+#modal-liquidar,
+#modal-alerta,
+#modal-eliminar-producto {
   margin: auto;
   position: fixed;
   top: 0;
@@ -421,7 +411,6 @@ legend {
   gap: 20px;
   align-items: center;
 }
-
 
 #modalVenta::backdrop {
   background-color: rgba(0, 0, 0, 0.55);

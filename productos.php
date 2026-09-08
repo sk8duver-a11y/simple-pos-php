@@ -43,7 +43,7 @@ include "session.php";
         <section id="tabla-productos">
             <fieldset>
                 <legend>Buscar Producto</legend>
-                <input type="text" id="buscar-producto" name="buscar-producto" placeholder="Buscar producto..." autofocus oninput="this.value = this.value.toUpperCase()">
+                <input type="text" id="buscar-producto" name="buscar-producto" placeholder="Buscar producto..." autofocus oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                 <span>Productos:</span>
                 <span id="cantidad-productos"></span>
             </fieldset>
@@ -72,6 +72,18 @@ include "session.php";
         <div id="modal-alerta-contenido">
             <label id="mensaje-alerta"></label>
             <button type="button" class="btn-cancelar" onclick="modalAlerta.close()">Aceptar</button>
+        </div>
+    </dialog>
+
+    <dialog id="modal-eliminar-producto">
+        <!-- <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button> -->
+        <div id="modal-alerta-contenido">
+            <span id="nombre-producto-eliminar"></span>
+            <label>¿Seguro que desea eliminar el producto?</label>
+            <div>
+                <button type="button" class="btn-cancelar" onclick="modalEliminarProducto.close()">Cancelar</button>
+                <button type="button" class="btn-eliminar" id="btn-eliminar-producto">Eliminar</button>
+            </div>
         </div>
     </dialog>
 

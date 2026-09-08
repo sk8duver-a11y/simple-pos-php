@@ -5,8 +5,16 @@ const botonCancelar = document.getElementById("cancelar");
 const buscarProducto = document.getElementById("buscar-producto");
 const modalAlerta = document.getElementById("modal-alerta");
 const mensajeAlerta = document.getElementById("mensaje-alerta");
+const modalEliminarProducto = document.getElementById(
+  "modal-eliminar-producto",
+);
+const btnEliminarProducto = document.getElementById("btn-eliminar-producto");
+const nombreProductoEliminar = document.getElementById(
+  "nombre-producto-eliminar",
+);
 
 let idEditar = null;
+let idProducto = null;
 let listaProductos = [];
 listarProductos();
 
@@ -133,29 +141,9 @@ function listarProductos(busqueda = "") {
         btnEliminar.classList.add("btn-eliminar");
 
         btnEliminar.addEventListener("click", function () {
-          const idProducto = btnEliminar.dataset.id_producto;
-
-          if (
-            !confirm(
-              `¿Está seguro de que desea eliminar el producto: ${producto.nombre}?`,
-            )
-          ) {
-            return;
-          }
-
-          fetch("controllers/eliminar_producto.php", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({ idProducto: idProducto }),
-          })
-            .then((respuesta) => respuesta.text())
-            .then((resultado) => {
-              console.log(resultado);
-              alert("Producto eliminado");
-              listarProductos();
-            });
+          idProducto = btnEliminar.dataset.id_producto;
+          modalEliminarProducto.showModal();
+          nombreProductoEliminar.textContent = producto.nombre;
         });
 
         tdAcciones.appendChild(btnEditar);
@@ -167,14 +155,37 @@ function listarProductos(busqueda = "") {
     });
 }
 
+btnEliminarProducto.addEventListener("click", function () {
+  fetch("controllers/eliminar_producto.php", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ idProducto: idProducto }),
+  })
+    .then((respuesta) => respuesta.json())
+    .then((resultado) => {
+      modalEliminarProducto.close();
+      modalAlerta.showModal();
+      mensajeAlerta.textContent = resultado.mensaje;
+      listarProductos();
+      limpiarFormulario();
+    });
+});
+
 botonCancelar.addEventListener("click", function () {
+  limpiarFormulario();
+});
+
+function limpiarFormulario() {
   formularioProductos.reset();
   idEditar = null;
   botonGuardar.textContent = "Agregar";
   buscarProducto.value = "";
   buscarProducto.focus();
+  idProducto = null;
   listarProductos();
-});
+}
 
 buscarProducto.addEventListener("input", function () {
   listarProductos(buscarProducto.value);
