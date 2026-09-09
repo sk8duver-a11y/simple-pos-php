@@ -15,6 +15,8 @@ const btnModalVenta = document.getElementById("btn-modal-venta");
 const btnCerrarModal = document.getElementById("btn-cerrar-modal");
 const btnCerrarModal2 = document.getElementById("btn-cerrar-modal-2");
 const modalVenta = document.getElementById("modalVenta");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 let idClienteSeleccionado = null;
 let totalVendido = 0;
@@ -172,7 +174,8 @@ async function buscarCodigoBarras(evento) {
   const producto = productos.find((p) => p.codigo_barras === codigo);
 
   if (!producto) {
-    alert("Producto no encontrado.");
+    mensajeAlerta.textContent = "Producto no encontrado.";
+    modalAlerta.showModal();
     return;
   }
 
@@ -219,7 +222,8 @@ async function registrarVenta() {
   const productos = [];
 
   if (radioVentacredito.checked && !idClienteSeleccionado) {
-    alert("No se puede registrar la venta porque el cliente no existe en la base de datos.");
+    mensajeAlerta.textContent = "No se puede registrar la venta porque el cliente no existe en la base de datos.";
+    modalAlerta.showModal();
     return;
   }
 
@@ -255,7 +259,8 @@ async function registrarVenta() {
 
   const resultado = await respuesta.json();
 
-  alert(resultado.mensaje);
+  mensajeAlerta.textContent = resultado.mensaje;
+  modalAlerta.showModal();
 
   cerrarModalVenta();
   cancelarVenta();
@@ -336,7 +341,8 @@ function abrirModalVenta () {
 const filas = tablaVenta.querySelectorAll("tr");
 
 if (filas.length === 0) {
-    alert("Debe agregar al menos un producto.");
+    mensajeAlerta.textContent = "Debe agregar al menos un producto.";
+    modalAlerta.showModal();
     return;
   } else {
     modalVenta.showModal();

@@ -403,6 +403,18 @@ legend {
   padding: 30px 40px;
   border: 1px solid var(--white-bg3);
   border-radius: 10px;
+  animation: modal-entrada 0.28s ease-out;
+}
+
+@keyframes modal-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 #modal-alerta-contenido {
@@ -412,8 +424,23 @@ legend {
   align-items: center;
 }
 
-#modalVenta::backdrop {
+#modalVenta::backdrop,
+#modal-detalle-venta::backdrop,
+#modal-abono::backdrop,
+#modal-liquidar::backdrop,
+#modal-alerta::backdrop,
+#modal-eliminar-producto::backdrop {
   background-color: rgba(0, 0, 0, 0.55);
+  animation: backdrop-entrada 0.28s ease-out;
+}
+
+@keyframes backdrop-entrada {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.55);
+  }
 }
 
 #venta-contado,

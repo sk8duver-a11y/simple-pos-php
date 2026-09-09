@@ -41,7 +41,8 @@ formularioProductos.addEventListener("submit", function (event) {
     datos.precioCompra.trim() === "" ||
     datos.precioVenta.trim() === ""
   ) {
-    alert("Por favor, complete todos los campos");
+    mensajeAlerta.textContent = "Por favor, complete todos los campos";
+    modalAlerta.showModal();
     return;
   }
 
