@@ -1,13 +1,20 @@
 const inputGanancia = document.getElementById("input-ganancia");
 const btnGanancia = document.getElementById("btn-ganancia");
-
 const verGanancia = document.getElementById("ver-ganancia");
 const verTotalVendido = document.getElementById("ver-total-vendido");
 const verCantidadVentas = document.getElementById("ver-cantidad-ventas");
-
 const sectionVentasDia = document.getElementById("section-ventas-dia");
+const modalDetalleVenta = document.getElementById("modal-detalle-venta");
+const contenidoDetalleVenta = document.getElementById("contenido-detalle-venta");
+const btnCerrarModal = document.getElementById("btn-cerrar-modal-2");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 btnGanancia.addEventListener("click", obtenerVentasDia);
+
+btnCerrarModal.addEventListener("click", function () {
+  modalDetalleVenta.close();
+});
 
 obtenerVentasDia();
 
@@ -42,6 +49,7 @@ function crearTablaVentas(ventas) {
     th.textContent = texto;
     tr.appendChild(th);
   });
+
   thead.appendChild(tr);
   tabla.appendChild(thead);
 
@@ -69,14 +77,7 @@ function crearTablaVentas(ventas) {
     btnDetalle.dataset.idVenta = venta.id_venta;
 
     btnDetalle.addEventListener("click", function () {
-      const siguienteFila = tr.nextElementSibling;
-      if (siguienteFila && siguienteFila.classList.contains("detalle-venta")) {
-        siguienteFila.remove();
-        btnDetalle.textContent = "Ver detalle";
-      } else {
-        verDetalleVenta(btnDetalle.dataset.idVenta, tr);
-        btnDetalle.textContent = "Cerrar detalle";
-      }
+      verDetalleVenta(btnDetalle.dataset.idVenta);
     });
 
     tdAcciones.appendChild(btnDetalle);
@@ -89,32 +90,29 @@ function crearTablaVentas(ventas) {
   sectionVentasDia.appendChild(tabla);
 }
 
-function verDetalleVenta(idVenta, tr) {
+function verDetalleVenta(idVenta) {
   fetch(`controllers/obtener_detalle_venta.php?idVenta=${idVenta}`)
     .then((respuesta) => respuesta.json())
     .then((detalle) => {
-      mostrarDetalleVenta(detalle, tr, idVenta);
+      mostrarDetalleVenta(detalle, idVenta);
     });
 }
 
-function mostrarDetalleVenta(detalle, tr, idVenta) {
-  // Crear la fila donde irá el detalle
-  const trDetalle = document.createElement("tr");
-  trDetalle.classList.add("detalle-venta");
-  // Crear la celda que ocupará todas las columnas
-  const tdDetalle = document.createElement("td");
-  tdDetalle.colSpan = 4;
-  // Crear la tabla del detalle
+function mostrarDetalleVenta(detalle, idVenta) {
+  contenidoDetalleVenta.textContent = ""; 
+
   const tabla = crearTablaDetalle(detalle);
-  // Agregar la tabla dentro de la celda
-  tdDetalle.appendChild(tabla);
+
+  contenidoDetalleVenta.appendChild(tabla);
 
   const btnEliminarVenta = document.createElement("button");
+
   btnEliminarVenta.textContent = "Eliminar venta";
+
   btnEliminarVenta.classList.add("btn-eliminar");
 
-  btnEliminarVenta.addEventListener("click", function () {
-    eliminarVenta(idVenta)
+  btnEliminarVenta.addEventListener("click", function () { 
+    eliminarVenta(idVenta); 
   });
 
 
@@ -123,13 +121,9 @@ function mostrarDetalleVenta(detalle, tr, idVenta) {
 
   contenedorBoton.appendChild(btnEliminarVenta);
 
-  tdDetalle.appendChild(contenedorBoton);
-
-
-  // Agregar la celda a la fila
-  trDetalle.appendChild(tdDetalle);
-  // Insertar la fila debajo de la venta seleccionada
-  tr.after(trDetalle);
+  contenidoDetalleVenta.appendChild(contenedorBoton); 
+  
+  modalDetalleVenta.showModal();
 }
 
 function crearTablaDetalle(detalle) {
@@ -216,6 +210,9 @@ function eliminarProductoVenta(idDetalle, nombre) {
     .then((respuesta) => respuesta.json())
     .then((resultado) => {
       if (resultado.success) {
+        modalDetalleVenta.close();
+        mensajeAlerta.textContent = resultado.mensaje;
+        modalAlerta.showModal();
         obtenerVentasDia();
       } else {
         alert(resultado.mensaje);
@@ -245,6 +242,9 @@ function eliminarVenta(idVenta) {
     .then((respuesta) => respuesta.json())
     .then((resultado) => {
       if (resultado.success) {
+        modalDetalleVenta.close();
+        mensajeAlerta.textContent = resultado.mensaje;
+        modalAlerta.showModal();
         obtenerVentasDia()
       } else {
         alert(resultado.mensaje);

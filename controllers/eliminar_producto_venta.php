@@ -56,6 +56,11 @@ try {
         $stmtUpdateVentas->bind_param("ii", $sumaSubtotal, $idVenta);
         $stmtUpdateVentas->execute();
     } else {
+        $sqlEliminarPagos = "DELETE FROM pagos WHERE id_venta = ?";
+        $stmtEliminarPagos = $conn->prepare($sqlEliminarPagos);
+        $stmtEliminarPagos->bind_param("i", $idVenta);
+        $stmtEliminarPagos->execute();
+        
         $sqlEliminarVenta = "DELETE FROM ventas WHERE id_venta = ?";
         $stmtEliminarVenta = $conn->prepare($sqlEliminarVenta);
         $stmtEliminarVenta->bind_param("i", $idVenta);

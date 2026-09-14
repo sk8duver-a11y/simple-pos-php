@@ -15,6 +15,11 @@ try{
     throw new Exception("No se recibió el id de la venta.");
 }
 
+    $sqlEliminarPagos = "DELETE FROM pagos WHERE id_venta = ?";
+    $stmtEliminarPagos = $conn->prepare($sqlEliminarPagos);
+    $stmtEliminarPagos->bind_param("i", $idVenta);
+    $stmtEliminarPagos->execute();
+
     $sqlEliminarDetalles = "DELETE FROM detalle_venta WHERE id_venta = ?";
     $stmtEliminarDetalles = $conn->prepare($sqlEliminarDetalles);
     $stmtEliminarDetalles->bind_param("i", $idVenta);
