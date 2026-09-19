@@ -74,6 +74,29 @@ date_default_timezone_set('America/Bogota');
         </div>
     </dialog>
 
+    <dialog id="modal-eliminar-producto">
+        <!-- <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button> -->
+        <div id="modal-alerta-contenido">
+            <span id="nombre-producto-eliminar"></span>
+            <label>¿Seguro que desea eliminar el producto?</label>
+            <div>
+                <button type="button" class="btn-cancelar" onclick="modalEliminarProducto.close()">Cancelar</button>
+                <button type="button" class="btn-eliminar" id="btn-eliminar-producto">Eliminar</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="modal-eliminar-venta">
+        <!-- <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button> -->
+        <div id="modal-alerta-contenido">
+            <label>¿Seguro que desea eliminar la venta?</label>
+            <div>
+                <button type="button" class="btn-cancelar" onclick="modalEliminarVenta.close()">Cancelar</button>
+                <button type="button" class="btn-eliminar" id="btn-confirmar-eliminar-venta">Eliminar</button>
+            </div>
+        </div>
+    </dialog>
+
     <script src="assets/js/ventas.js"></script>
 
 </body>

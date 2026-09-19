@@ -393,7 +393,8 @@ legend {
 #modal-abono,
 #modal-liquidar,
 #modal-alerta,
-#modal-eliminar-producto {
+#modal-eliminar-producto,
+#modal-eliminar-venta {
   margin: auto;
   position: fixed;
   top: 0;
@@ -429,7 +430,8 @@ legend {
 #modal-abono::backdrop,
 #modal-liquidar::backdrop,
 #modal-alerta::backdrop,
-#modal-eliminar-producto::backdrop {
+#modal-eliminar-producto::backdrop,
+#modal-eliminar-venta::backdrop {
   background-color: rgba(0, 0, 0, 0.55);
   animation: backdrop-entrada 0.28s ease-out;
 }

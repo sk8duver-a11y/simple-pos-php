@@ -9,6 +9,14 @@ const contenidoDetalleVenta = document.getElementById("contenido-detalle-venta")
 const btnCerrarModal = document.getElementById("btn-cerrar-modal-2");
 const modalAlerta = document.getElementById("modal-alerta");
 const mensajeAlerta = document.getElementById("mensaje-alerta");
+const modalEliminarProducto = document.getElementById("modal-eliminar-producto");
+const btnEliminarProducto = document.getElementById("btn-eliminar-producto");
+const modalEliminarVenta = document.getElementById("modal-eliminar-venta");
+const btnConfirmarEliminarVenta = document.getElementById("btn-confirmar-eliminar-venta");
+const nombreProductoEliminar = document.getElementById("nombre-producto-eliminar");
+
+let idDetalle = null;
+let idVenta = null;
 
 btnGanancia.addEventListener("click", obtenerVentasDia);
 
@@ -78,6 +86,7 @@ function crearTablaVentas(ventas) {
 
     btnDetalle.addEventListener("click", function () {
       verDetalleVenta(btnDetalle.dataset.idVenta);
+      idVenta = btnDetalle.dataset.idVenta;
     });
 
     tdAcciones.appendChild(btnDetalle);
@@ -94,15 +103,15 @@ function verDetalleVenta(idVenta) {
   fetch(`controllers/obtener_detalle_venta.php?idVenta=${idVenta}`)
     .then((respuesta) => respuesta.json())
     .then((detalle) => {
-      mostrarDetalleVenta(detalle, idVenta);
+      mostrarDetalleVenta(detalle);
     });
 }
 
-function mostrarDetalleVenta(detalle, idVenta) {
+function mostrarDetalleVenta(detalle) {
   contenidoDetalleVenta.textContent = ""; 
 
   const tabla = crearTablaDetalle(detalle);
-
+  
   contenidoDetalleVenta.appendChild(tabla);
 
   const btnEliminarVenta = document.createElement("button");
@@ -112,9 +121,8 @@ function mostrarDetalleVenta(detalle, idVenta) {
   btnEliminarVenta.classList.add("btn-eliminar");
 
   btnEliminarVenta.addEventListener("click", function () { 
-    eliminarVenta(idVenta); 
+    modalEliminarVenta.showModal();
   });
-
 
   const contenedorBoton = document.createElement("div");
   contenedorBoton.classList.add("contenedor-eliminar-venta");
@@ -178,7 +186,9 @@ function crearTablaDetalle(detalle) {
     btnEliminar.dataset.nombre = producto.nombre;
 
     btnEliminar.addEventListener("click", function () {
-      eliminarProductoVenta(producto.id_detalle, btnEliminar.dataset.nombre);
+      modalEliminarProducto.showModal();
+      nombreProductoEliminar.textContent = btnEliminar.dataset.nombre;
+      idDetalle = btnEliminar.dataset.idDetalle;
     });
 
     tdAcciones.appendChild(btnEliminar);
@@ -191,14 +201,7 @@ function crearTablaDetalle(detalle) {
   return tabla;
 }
 
-function eliminarProductoVenta(idDetalle, nombre) {
-  if (
-    !confirm(
-      `¿Está seguro de que desea eliminar el producto ${nombre} del historial de ventas?`,
-    )
-  ) {
-    return;
-  }
+btnEliminarProducto.addEventListener("click", function () {
 
   fetch("controllers/eliminar_producto_venta.php", {
     method: "POST",
@@ -211,6 +214,7 @@ function eliminarProductoVenta(idDetalle, nombre) {
     .then((resultado) => {
       if (resultado.success) {
         modalDetalleVenta.close();
+        modalEliminarProducto.close();
         mensajeAlerta.textContent = resultado.mensaje;
         modalAlerta.showModal();
         obtenerVentasDia();
@@ -222,15 +226,9 @@ function eliminarProductoVenta(idDetalle, nombre) {
       console.error(error);
       alert("Ocurrió un error al eliminar el producto.");
     });
-}
+});
 
-function eliminarVenta(idVenta) {
-
-  if (
-    !confirm("¿Está seguro de que desea eliminar esta venta del historial?")
-  ) {
-    return;
-  }
+btnConfirmarEliminarVenta.addEventListener("click", function () {
 
   fetch("controllers/eliminar_venta.php", {
     method: "POST",
@@ -243,6 +241,7 @@ function eliminarVenta(idVenta) {
     .then((resultado) => {
       if (resultado.success) {
         modalDetalleVenta.close();
+        modalEliminarVenta.close();
         mensajeAlerta.textContent = resultado.mensaje;
         modalAlerta.showModal();
         obtenerVentasDia()
@@ -252,6 +251,6 @@ function eliminarVenta(idVenta) {
     })
     .catch((error) => {
       console.error(error);
-      alert("Ocurrió un error al eliminar la.");
+      alert("Ocurrió un error al eliminar la venta.");
     });
-};
+});
