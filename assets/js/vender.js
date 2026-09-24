@@ -20,6 +20,8 @@ const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 let idClienteSeleccionado = null;
 let totalVendido = 0;
+let tiempoBusquedaProducto;
+let tiempoBusquedaCliente;
 
 mostrarBuscarCliente();
 
@@ -27,7 +29,14 @@ function formatearMoneda(valor) {
   return `$${Number(valor).toLocaleString("es-CO")}`;
 }
 
-busquedaProducto.addEventListener("input", buscarProductos);
+busquedaProducto.addEventListener("input", function () {
+  clearTimeout(tiempoBusquedaProducto);
+
+  tiempoBusquedaProducto = setTimeout(() => {
+    buscarProductos();
+  }, 300);
+});
+
 busquedaProducto.addEventListener("keydown", buscarCodigoBarras);
 inputPagoCon.addEventListener("input", calcularCambio);
 botonCancelar.addEventListener("click", cancelarVenta);
@@ -35,10 +44,16 @@ botonRegistrarVenta.addEventListener("click", registrarVenta);
 botonLimpiar.addEventListener("click", limpiarProductoBuscado);
 radioVentacontado.addEventListener("click", mostrarBuscarCliente);
 radioVentacredito.addEventListener("click", mostrarBuscarCliente);
-inputBuscarCliente.addEventListener("input", () => {
-  idClienteSeleccionado = null;
-  buscarClientes();
+
+inputBuscarCliente.addEventListener("input", function () {
+  clearTimeout(tiempoBusquedaCliente)
+
+  tiempoBusquedaCliente = setTimeout(() => {
+    idClienteSeleccionado = null;
+    buscarClientes();
+  }, 300);
 });
+
 btnModalVenta.addEventListener("click", abrirModalVenta);
 btnCerrarModal.addEventListener("click", cerrarModalVenta);
 btnCerrarModal2.addEventListener("click", cerrarModalVenta);
@@ -59,7 +74,7 @@ async function buscarProductos() {
   }
 
   const respuesta = await fetch(
-    "controllers/listar_productos.php?buscar=" + texto,
+    "controllers/listar_productos.php?buscar=" + encodeURIComponent(texto),
   );
   const productos = await respuesta.json();
 

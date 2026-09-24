@@ -6,7 +6,13 @@ const buscarCliente = document.getElementById("buscar-cliente");
 
 let idEditar = null;
 let listaClientes = [];
+let tiempoBusqueda;
+
 listarClientes();
+
+setInterval(() => {
+  listarClientes(buscarCliente.value);
+}, 5000);
 
 formularioClientes.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -167,5 +173,9 @@ botonCancelar.addEventListener("click", function () {
 });
 
 buscarCliente.addEventListener("input", function () {
-  listarClientes(buscarCliente.value);
+  clearTimeout(tiempoBusqueda);
+
+  tiempoBusqueda = setTimeout(() => {
+    listarClientes(buscarCliente.value);
+  }, 300);
 });

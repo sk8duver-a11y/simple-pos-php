@@ -15,7 +15,13 @@ const nombreProductoEliminar = document.getElementById(
 
 let idEditar = null;
 let listaProductos = [];
+let tiempoBusqueda;
+
 listarProductos();
+
+setInterval(() => {
+  listarProductos(buscarProducto.value);
+}, 5000);
 
 formularioProductos.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -184,10 +190,13 @@ function limpiarFormulario() {
   botonGuardar.textContent = "Agregar";
   buscarProducto.value = "";
   buscarProducto.focus();
-  idProducto = null;
   listarProductos();
 }
 
 buscarProducto.addEventListener("input", function () {
-  listarProductos(buscarProducto.value);
+  clearTimeout(tiempoBusqueda);
+
+  tiempoBusqueda = setTimeout(() => {
+    listarProductos(buscarProducto.value);
+  }, 300);
 });
