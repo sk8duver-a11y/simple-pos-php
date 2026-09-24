@@ -1,26 +1,70 @@
+/* ==========================
+   RESET
+========================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+
+/* ==========================
+   VARIABLES
+========================== */
+
 :root {
   --white-bg1: #fafafa;
   --white-bg2: #f4f4f5;
   --white-bg3: #e4e4e7;
+
   --yellow-btn: #fe9a37;
   --red-btn: #fb2c36;
-  --gree-btn: #2aa63e;
+  --green-btn: #2aa63e;
   --blue-btn: #155dfc;
+
   --black: #1c1917;
   --gray: #57534d;
 }
+
+
+/* ==========================
+   ESTILOS GENERALES
+========================== */
 
 body {
   display: flex;
   font-family: Georgia, "Times New Roman", Times, serif;
   height: 100vh;
 }
+
+h2 {
+  color: var(--blue-btn);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+label {
+  color: var(--gray);
+  font-weight: bold;
+  padding: 5px;
+}
+
+legend {
+  color: var(--gray);
+  font-weight: bold;
+}
+
+span {
+  font-weight: bold;
+  color: var(--blue-btn);
+  font-size: 30px;
+}
+
+
+/* ==========================
+   LAYOUT
+========================== */
 
 header {
   position: sticky;
@@ -39,6 +83,22 @@ nav {
   height: 100%;
   justify-content: space-between;
 }
+
+main {
+  flex: 6;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  overflow: auto;
+  background-color: var(--white-bg2);
+}
+
+
+/* ==========================
+   NAVEGACIÓN
+========================== */
 
 li {
   margin: 15px 5px;
@@ -72,22 +132,30 @@ a:hover {
   transform: translateY(-2px);
 }
 
-main {
-  flex: 6;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  overflow: auto;
-  background-color: var(--white-bg2);
+
+/* ==========================
+   FORMULARIOS
+========================== */
+
+input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid var(--white-bg3);
+  background-color: transparent;
+  outline: none;
+  color: var(--gray);
 }
 
+input:focus {
+  border-bottom: 1px solid var(--blue-btn);
+}
+
+fieldset,
 #agregar-producto,
 #section-busqueda-producto,
 #section-ganancia,
-#agregar-cliente,
-fieldset {
+#agregar-cliente {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -108,54 +176,52 @@ fieldset {
   width: 100%;
 }
 
-label {
-  color: var(--gray);
-  font-weight: bold;
-  padding: 5px;
-}
 
-input {
-  width: 100%;
-  padding: 5px;
+/* ==========================
+   BOTONES
+========================== */
+
+.btn-agregar,
+.btn-cancelar,
+.btn-editar,
+.btn-eliminar {
+  color: var(--white-bg1);
+  padding: 5px 10px;
   border: none;
-  border-bottom: 1px solid var(--white-bg3);
-  background-color: transparent;
-  outline: none;
-  color: var(--gray);
-}
-
-input:focus {
-  border-bottom: 1px solid var(--blue-btn);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0 5px 0 5px;
 }
 
 .btn-agregar {
-  background-color: var(--gree-btn);
-  padding: 5px 10px;
-  border: none;
-  color: var(--white-bg1);
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-  margin: 0 5px 0 5px;
+  background-color: var(--green-btn);
 }
 
 .btn-cancelar {
   background-color: var(--blue-btn);
-  padding: 5px 10px;
-  border: none;
-  color: var(--white-bg1);
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-  margin: 0 5px 0 5px;
+}
+
+.btn-editar {
+  background-color: var(--yellow-btn);
+}
+
+.btn-eliminar {
+  background-color: var(--red-btn);
 }
 
 .btn-agregar:hover,
-.btn-cancelar:hover {
+.btn-cancelar:hover,
+.btn-editar:hover,
+.btn-eliminar:hover {
   transform: translateY(-2px);
 }
+
+
+/* ==========================
+   TABLAS
+========================== */
 
 #tabla-productos,
 #tabla-venta-productos,
@@ -200,34 +266,47 @@ tr:hover {
   background-color: var(--white-bg2);
 }
 
-.btn-editar {
-  background-color: var(--yellow-btn);
-  color: var(--white-bg1);
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
-  margin: 0 5px 0 5px;
-  cursor: pointer;
-  transition: 0.3s;
+
+/* ==========================
+   AUTOCOMPLETADO
+========================== */
+
+#lista-productos,
+#lista-clientes {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
 }
 
-.btn-eliminar {
-  background-color: var(--red-btn);
-  color: var(--white-bg1);
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  margin: 0 5px 0 5px;
+#lista-productos {
+  top: 65px;
 }
 
-.btn-editar:hover,
-.btn-eliminar:hover {
-  transform: translateY(-2px);
+#lista-clientes {
+  top: 150px;
 }
+
+.item-producto,
+.item-cliente {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.item-producto:hover,
+.item-cliente:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* ==========================
+   VENTAS
+========================== */
 
 #opciones-venta {
   width: 100%;
@@ -249,43 +328,8 @@ tr:hover {
   width: 100%;
 }
 
-#lista-productos {
-  position: absolute;
-  top: 65px;
-  left: 0;
-  width: 100%;
-  background: white;
-  border: 1px solid #ccc;
-  max-height: 250px;
-  overflow-y: auto;
-  display: none;
-  z-index: 1000;
-}
-
-.item-producto,
-.item-cliente {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.item-producto:hover,
-.item-cliente:hover {
-  background-color: #f0f0f0;
-}
-
-span {
-  font-weight: bold;
-  color: var(--blue-btn);
-  font-size: 30px;
-}
-
 #pago-con {
   font-size: 20px;
-}
-
-legend {
-  color: var(--gray);
-  font-weight: bold;
 }
 
 .id-ganancia {
@@ -295,8 +339,9 @@ legend {
   justify-content: center;
 }
 
+
 /* ==========================
-   VENTAS
+   RESUMEN DE VENTAS
 ========================== */
 
 .resumen-ventas {
@@ -312,7 +357,8 @@ legend {
   gap: 20px;
 }
 
-.filtros-resumen .item-producto .item-cliente {
+.filtros-resumen .item-producto,
+.filtros-resumen .item-cliente {
   flex: 1;
 }
 
@@ -345,6 +391,11 @@ legend {
   font-weight: bold;
 }
 
+
+/* ==========================
+   DETALLE DE VENTA
+========================== */
+
 .detalle-venta td {
   background-color: var(--white-bg2);
   padding: 15px;
@@ -368,6 +419,7 @@ legend {
   margin-top: 15px;
 }
 
+
 /* ==========================
    LOGIN
 ========================== */
@@ -384,9 +436,12 @@ legend {
   flex-direction: column;
 }
 
+
 /* ==========================
-   MODAL TIPO VENTA
+   MODALES
 ========================== */
+
+/* Estructura general de los modales */
 
 #modalVenta,
 #modal-detalle-venta,
@@ -407,23 +462,7 @@ legend {
   animation: modal-entrada 0.28s ease-out;
 }
 
-@keyframes modal-entrada {
-  from {
-    opacity: 0;
-    transform: scale(0.94) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-#modal-alerta-contenido {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
+/* Backdrop */
 
 #modalVenta::backdrop,
 #modal-detalle-venta::backdrop,
@@ -436,14 +475,34 @@ legend {
   animation: backdrop-entrada 0.28s ease-out;
 }
 
+/* Animaciones */
+
+@keyframes modal-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 @keyframes backdrop-entrada {
   from {
     background-color: rgba(0, 0, 0, 0);
   }
+
   to {
     background-color: rgba(0, 0, 0, 0.55);
   }
 }
+
+
+/* ==========================
+   MODAL TIPO DE VENTA
+========================== */
 
 #venta-contado,
 #venta-credito {
@@ -459,24 +518,22 @@ legend {
   margin-bottom: 10px;
 }
 
-h2 {
-  color: var(--blue-btn);
-  text-align: center;
-  margin-bottom: 30px;
+
+/* ==========================
+   MODAL ALERTA
+========================== */
+
+#modal-alerta-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
-#lista-clientes {
-  position: absolute;
-  top: 150px;
-  left: 0;
-  width: 100%;
-  background: white;
-  border: 1px solid #ccc;
-  max-height: 250px;
-  overflow-y: auto;
-  display: none;
-  z-index: 1000;
-}
+
+/* ==========================
+   BOTONES DE CIERRE DE MODALES
+========================== */
 
 #btn-cerrar-modal-2,
 #btn-cerrar-abono,
@@ -486,6 +543,7 @@ h2 {
   right: 10px;
   z-index: 1;
 }
+
 
 /* ==========================
    CLIENTE
@@ -523,11 +581,21 @@ h2 {
   margin-bottom: 10px;
 }
 
+
+/* ==========================
+   TABLAS DE CLIENTE
+========================== */
+
 #tabla-ventas-pendientes,
 #tabla-historial-ventas-pendientes,
 #tabla-historial-pagos {
   display: none;
 }
+
+
+/* ==========================
+   MODAL CLIENTE
+========================== */
 
 #modal-header {
   display: flex;
@@ -536,6 +604,18 @@ h2 {
   align-items: center;
   margin-bottom: 20px;
 }
+
+.modal-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+
+/* ==========================
+   ESTADOS DE VENTA
+========================== */
 
 .estado {
   display: inline-block;
@@ -551,13 +631,6 @@ h2 {
 }
 
 .estado-pagada {
-  background-color: var(--gree-btn);
+  background-color: var(--green-btn);
   color: var(--white-bg1);
-}
-
-.modal-contenido {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
 }
