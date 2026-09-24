@@ -24,7 +24,12 @@ btnCerrarModal.addEventListener("click", function () {
   modalDetalleVenta.close();
 });
 
+
 obtenerVentasDia();
+
+setInterval(() => {
+  obtenerVentasDia()
+}, 5000);
 
 function obtenerVentasDia() {
   const fecha = inputGanancia.value;
@@ -50,7 +55,7 @@ function crearTablaVentas(ventas) {
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
 
-  const encabezados = ["Hora", "Productos", "Total", "Acciones"];
+  const encabezados = ["Hora", "Productos", "Total", "Tipo Venta", "Acciones"];
 
   encabezados.forEach((texto) => {
     const th = document.createElement("th");
@@ -77,6 +82,18 @@ function crearTablaVentas(ventas) {
     const tdTotal = document.createElement("td");
     tdTotal.textContent = `$${Number(venta.total).toLocaleString("es-CO")}`;
     tr.appendChild(tdTotal);
+
+    const tdTipoVenta = document.createElement("td");
+    const spanTipoVenta = document.createElement("span");
+
+    spanTipoVenta.textContent = venta.tipo_venta;
+    if (venta.tipo_venta === "CREDITO") {
+      spanTipoVenta.classList.add("estado", "estado-pendiente");
+    } else if (venta.tipo_venta === "CONTADO") {
+      spanTipoVenta.classList.add("estado", "estado-pagada");
+    }
+    tdTipoVenta.appendChild(spanTipoVenta);
+    tr.appendChild(tdTipoVenta);
 
     const tdAcciones = document.createElement("td");
     const btnDetalle = document.createElement("button");

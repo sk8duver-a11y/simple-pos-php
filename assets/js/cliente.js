@@ -206,18 +206,21 @@ btnHistorialVentas.addEventListener("click", function () {
   tablaVentasPendientes.style.display = "none";
   tablaHistorialPagos.style.display = "none";
   tablaHistorialVentasPendientes.style.display = "flex";
+  obtenerHistorialVentas();
 });
 
 btnVentasPendientes.addEventListener("click", function () {
   tablaHistorialVentasPendientes.style.display = "none";
   tablaHistorialPagos.style.display = "none";
   tablaVentasPendientes.style.display = "flex";
+  obtenerVentasPendientes();
 });
 
 btnHistorialPagos.addEventListener("click", function () {
   tablaHistorialVentasPendientes.style.display = "none";
   tablaVentasPendientes.style.display = "none";
   tablaHistorialPagos.style.display = "flex";
+  obtenerHistorialPagos();
 });
 
 function cerrarModalDetalle() {
@@ -331,7 +334,23 @@ btnConfirmarLiquidar.addEventListener("click", function () {
     });
 });
 
+function actualizarDatos() {
+  obtenerCliente();
+  if (tablaVentasPendientes.style.display === "flex") {
+    obtenerVentasPendientes();
+  }
+  
+  if (tablaHistorialVentasPendientes.style.display === "flex") {
+    obtenerHistorialVentas();
+  }
+  
+  if (tablaHistorialPagos.style.display === "flex") {
+    obtenerHistorialPagos();
+  }
+}
+
+actualizarDatos();
+setInterval(actualizarDatos, 5000);
+
 obtenerCliente();
 obtenerVentasPendientes();
-obtenerHistorialVentas();
-obtenerHistorialPagos();
