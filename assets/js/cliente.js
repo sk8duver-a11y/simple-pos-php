@@ -278,7 +278,8 @@ btnConfirmarAbono.addEventListener("click", function () {
     .then((respuesta) => respuesta.json())
     .then((resultado) => {
       if (resultado.success) {
-        alert(resultado.mensaje);
+        modalAlerta.showModal();
+        mensajeAlerta.textContent = resultado.mensaje;
         modalAbono.close();
         obtenerVentasPendientes();
         obtenerHistorialVentas();
@@ -329,7 +330,8 @@ btnConfirmarLiquidar.addEventListener("click", function () {
         obtenerHistorialVentas();
         obtenerHistorialPagos();
       } else {
-        alert(resultado.mensaje);
+        modalAlerta.showModal();
+        mensajeAlerta.textContent = resultado.mensaje;
       }
     });
 });
@@ -352,5 +354,4 @@ function actualizarDatos() {
 actualizarDatos();
 setInterval(actualizarDatos, 5000);
 
-obtenerCliente();
 obtenerVentasPendientes();
