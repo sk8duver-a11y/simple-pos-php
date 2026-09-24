@@ -14,7 +14,6 @@ const nombreProductoEliminar = document.getElementById(
 );
 
 let idEditar = null;
-let idProducto = null;
 let listaProductos = [];
 listarProductos();
 
@@ -142,7 +141,7 @@ function listarProductos(busqueda = "") {
         btnEliminar.classList.add("btn-eliminar");
 
         btnEliminar.addEventListener("click", function () {
-          idProducto = btnEliminar.dataset.id_producto;
+        btnEliminarProducto.dataset.id_producto = producto.id_producto;
           modalEliminarProducto.showModal();
           nombreProductoEliminar.textContent = producto.nombre;
         });
@@ -157,6 +156,7 @@ function listarProductos(busqueda = "") {
 }
 
 btnEliminarProducto.addEventListener("click", function () {
+  const idProducto = btnEliminarProducto.dataset.id_producto;
   fetch("controllers/eliminar_producto.php", {
     method: "POST",
     headers: {

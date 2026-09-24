@@ -35,6 +35,8 @@ const btnCancelarLiquidar = document.getElementById("btn-cancelar-liquidar");
 const btnConfirmarLiquidar = document.getElementById("btn-confirmar-liquidar");
 const btnCerrarLiquidar = document.getElementById("btn-cerrar-liquidar");
 const saldoLiquidar = document.getElementById("saldo-liquidar");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 let saldoTotal = 0;
 
@@ -226,7 +228,8 @@ btnAbonar.addEventListener("click", function () {
   saldoAbono.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
 
   if (saldoTotal <= 0) {
-    alert("No hay saldo pendiente para abonar.");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "No hay saldo pendiente para abonar.";
     return;
   }
 
@@ -247,13 +250,15 @@ btnConfirmarAbono.addEventListener("click", function () {
   const monto = Number(inputAbono.value);
 
   if (monto <= 0) {
-    alert("Ingrese un monto válido.");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "Ingrese un monto válido.";
     inputAbono.focus();
     return;
   }
 
   if (monto > saldoTotal) {
-    alert("El abono no puede ser mayor al saldo pendiente.");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "El abono no puede ser mayor al saldo pendiente.";
     inputAbono.focus();
     return;
   }
@@ -285,7 +290,8 @@ btnLiquidar.addEventListener("click", function () {
   saldoLiquidar.textContent = `$${saldoTotal.toLocaleString("es-CO")}`;
 
   if (saldoTotal <= 0) {
-    alert("No hay saldo pendiente para liquidar.");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "No hay saldo pendiente para liquidar.";
     return;
   }
 
