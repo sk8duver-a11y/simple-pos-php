@@ -5,30 +5,50 @@ const modalAlerta = document.getElementById("modal-alerta");
 const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 btnDescargarInforme.addEventListener("click", function () {
-    const fechaInicio = fechaInicial.value;
-    const fechaFin = fechaFinal.value;
+    const datos = {
+        fechaInicial: fechaInicial.value,
+        fechaFinal: fechaFinal.value,
+    };
 
-    if (!fechaInicio || !fechaFin) {
-        mensajeAlerta.textContent = "Debes seleccionar la fecha inicial y la fecha final.";
+    if (!datos.fechaInicial || !datos.fechaFinal) {
+        mensajeAlerta.textContent = "Por favor, complete ambos campos de fecha";
         modalAlerta.showModal();
         return;
     }
 
-    if (fechaInicio > fechaFin) {
-        mensajeAlerta.textContent = "La fecha inicial no puede ser mayor que la fecha final.";
+    if (datos.fechaInicial > datos.fechaFinal) {
+        mensajeAlerta.textContent = "La fecha inicial no puede ser mayor que la fecha final";
         modalAlerta.showModal();
         return;
     }
 
-    const parametros = new URLSearchParams({
-        fechaInicial: fechaInicio,
-        fechaFinal: fechaFin
-    });
+    fetch("controllers/descargar_informe_ventas.php", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify(datos),
+    })
+        .then((respuesta) => respuesta.blob())
+        .then((archivo) => {
+            const url = URL.createObjectURL(archivo);
 
-    console.log("Fecha inicial:", fechaInicio);
-    console.log("Fecha final:", fechaFin);
-    console.log("Parámetros:", parametros.toString());
+            const enlace = document.createElement("a");
 
-    // window.location.href =
-    //     `controllers/descargar_informe_ventas.php?${parametros.toString()}`;
+            enlace.href = url;
+            enlace.download = `informe_ventas_${datos.fechaInicial}_${datos.fechaFinal}.xlsx`;
+
+            document.body.appendChild(enlace);
+
+            enlace.click();
+
+            enlace.remove();
+
+            URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+            console.error("Error al descargar el informe:", error);
+            mensajeAlerta.textContent = "Ocurrió un error al generar el informe.";
+            modalAlerta.showModal();
+        });
 });

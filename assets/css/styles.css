@@ -75,6 +75,7 @@ header {
   gap: 10px;
   height: 100vh;
   border-right: 1px solid var(--white-bg3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 nav {
@@ -167,6 +168,7 @@ fieldset,
   padding: 20px;
   position: relative;
   align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .item-productos,
@@ -239,6 +241,7 @@ fieldset,
   padding: 20px;
   height: 80vh;
   overflow: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 table {
