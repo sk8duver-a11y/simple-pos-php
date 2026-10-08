@@ -1,6 +1,7 @@
 const fechaInicial = document.getElementById("fecha-inicial");
 const fechaFinal = document.getElementById("fecha-final");
-const btnDescargarInforme = document.querySelector(".btn-descargar-informe");
+const btnDescargarInforme = document.getElementById("btn-descargar-ventas");
+const btnDescargarInformeProductos = document.getElementById("btn-descargar-productos");
 const modalAlerta = document.getElementById("modal-alerta");
 const mensajeAlerta = document.getElementById("mensaje-alerta");
 
@@ -51,4 +52,30 @@ btnDescargarInforme.addEventListener("click", function () {
             mensajeAlerta.textContent = "Ocurrió un error al generar el informe.";
             modalAlerta.showModal();
         });
+});
+
+btnDescargarInformeProductos.addEventListener("click", function () {
+    fetch("controllers/descargar_informe_productos.php")
+        .then((respuesta) => respuesta.blob())
+        .then((archivo) => {
+            const url = URL.createObjectURL(archivo);
+
+            const enlace = document.createElement("a");
+
+            enlace.href = url;
+            enlace.download = "informe_productos.xlsx";
+
+            document.body.appendChild(enlace);
+
+            enlace.click();
+
+            enlace.remove();
+
+            URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+        console.error("Error al descargar el informe:", error);
+        mensajeAlerta.textContent = "Ocurrió un error al generar el informe.";
+        modalAlerta.showModal();
+    });
 });

@@ -35,8 +35,22 @@ include "session.php";
                     </div>
                 </div>
                 <div class="acciones-informe"> 
-                    <button type="button" class="btn-descargar-informe"> 
+                    <button type="button" id="btn-descargar-ventas" class="btn-descargar-informe"> 
                         <span>📥</span> Descargar Excel 
+                    </button> 
+                </div>
+            </div>
+            <div class="tarjeta-informe">
+                <div class="cabecera-informe">
+                    <div class="icono-informe"> 📊 </div>
+                    <div>
+                        <h2>Informe de productos</h2>
+                        <p> Consulta la información de los productos disponibles y descarga la información en Excel. </p>
+                    </div>
+                </div>
+                <div class="acciones-informe"> 
+                    <button type="button" id="btn-descargar-productos" class="btn-descargar-informe"> 
+                        <span>📥</span> Descargar Excel
                     </button> 
                 </div>
             </div>
