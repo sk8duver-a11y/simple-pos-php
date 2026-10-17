@@ -3,6 +3,11 @@ const tablaClientes = document.getElementById("clientes-registrados");
 const botonGuardar = document.getElementById("btn-agregar-cliente");
 const botonCancelar = document.getElementById("cancelar");
 const buscarCliente = document.getElementById("buscar-cliente");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
+const modalEliminarCliente = document.getElementById("modal-eliminar-cliente");
+const btnEliminarCliente = document.getElementById("btn-eliminar-cliente");
+const nombreClienteEliminar = document.getElementById("nombre-eliminar-cliente");
 
 let idEditar = null;
 let listaClientes = [];
@@ -31,7 +36,8 @@ formularioClientes.addEventListener("submit", function (event) {
   }
 
   if (datos.nombreCliente.trim() === "") {
-    alert("Por favor, digite el nombre del cliente");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "Por favor, digite el nombre del cliente";
     return;
   }
 
@@ -44,7 +50,8 @@ formularioClientes.addEventListener("submit", function (event) {
   })
     .then((respuesta) => respuesta.json())
     .then((resultado) => {
-      alert(resultado.mensaje);
+      modalAlerta.showModal();
+      mensajeAlerta.textContent = resultado.mensaje;
 
       if (
         resultado.mensaje === "Cliente agregado correctamente." ||
@@ -129,15 +136,13 @@ function listarClientes(busqueda = "") {
         btnEliminar.classList.add("btn-eliminar");
 
         btnEliminar.addEventListener("click", function () {
-          const idCliente = btnEliminar.dataset.id_cliente;
+          btnEliminarCliente.dataset.id_cliente = cliente.id_cliente;
+          modalEliminarCliente.showModal();
+          nombreClienteEliminar.textContent = cliente.nombre;
+        });
 
-          if (
-            !confirm(
-              `¿Esta seguro que desea eliminar al cliente: ${cliente.nombre}?`,
-            )
-          ) {
-            return;
-          }
+        btnEliminarCliente.addEventListener("click", function () {
+          const idCliente = btnEliminarCliente.dataset.id_cliente;
 
           fetch("controllers/eliminar_cliente.php", {
             method: "POST",
@@ -148,8 +153,11 @@ function listarClientes(busqueda = "") {
           })
             .then((respuesta) => respuesta.json())
             .then((resultado) => {
-              alert(resultado.mensaje);
+              modalEliminarCliente.close();
+              modalAlerta.showModal();
+              mensajeAlerta.textContent = resultado.mensaje;
               listarClientes();
+              limpiarFormulario();
             });
         });
 
@@ -164,13 +172,17 @@ function listarClientes(busqueda = "") {
 }
 
 botonCancelar.addEventListener("click", function () {
+  limpiarFormulario();
+});
+
+function limpiarFormulario() {
   formularioClientes.reset();
   idEditar = null;
   botonGuardar.textContent = "Agregar";
   buscarCliente.value = "";
   buscarCliente.focus();
   listarClientes();
-});
+};
 
 buscarCliente.addEventListener("input", function () {
   clearTimeout(tiempoBusqueda);

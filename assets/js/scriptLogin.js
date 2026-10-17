@@ -1,4 +1,6 @@
 const loginPuntoVenta = document.getElementById("login-puntoVenta");
+const modalAlerta = document.getElementById("modal-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
 loginPuntoVenta.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -12,7 +14,8 @@ loginPuntoVenta.addEventListener("submit", function (event) {
   };
 
   if (datos.usuario.trim() === "" || datos.password.trim() === "") {
-    alert("Debe completar todos los campos.");
+    modalAlerta.showModal();
+    mensajeAlerta.textContent = "Debe completar todos los campos.";
     return;
   }
 
@@ -28,7 +31,8 @@ loginPuntoVenta.addEventListener("submit", function (event) {
       if (resultado === "Login correcto") {
         window.location.href = "index.php";
       } else {
-        alert(resultado);
+        modalAlerta.showModal();
+        mensajeAlerta.textContent = resultado;
       }
     })
     .catch((error) => {
