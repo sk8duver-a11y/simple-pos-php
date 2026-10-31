@@ -6,6 +6,7 @@
             <li><a href="clientes.php">Clientes</a></li>
             <li><a href="ventas.php">Ventas</a></li>
             <li><a href="informes.php">Informes</a></li>
+            <li><a href="usuarios.php">Usuarios</a></li>
         </div>
         <div>
             <li><a href="controllers/logout.php" id="cerrar-sesion">Cerrar sesión</a></li>

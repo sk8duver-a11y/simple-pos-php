@@ -107,6 +107,7 @@ CREATE TABLE pagos (
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(50) NOT NULL UNIQUE,
+    nombre_usuario VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 
