@@ -1,5 +1,6 @@
 <?php
 
+require_once "../config/verificar_admin.php";
 include "../config/conexion.php";
 
 $contenido = file_get_contents("php://input");

@@ -1,10 +1,11 @@
 <?php
 
+require_once "../config/verificar_admin.php";
 include "../config/conexion.php";
 
 $buscar = $_GET['buscar'] ?? '';
 
-$sql = "SELECT * FROM usuarios WHERE (nombre_usuario LIKE ?)";
+$sql = "SELECT id_usuario, usuario, nombre_usuario, rol FROM usuarios WHERE nombre_usuario LIKE ?";
 
 $stmt = $conn->prepare($sql);
 

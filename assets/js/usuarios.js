@@ -130,7 +130,6 @@ function listarUsuarios(busqueda = "") {
                         });
                 });
 
-
                 tdAcciones.appendChild(btnPermisos);
                 tdAcciones.appendChild(btnEditar);
                 tdAcciones.appendChild(btnEliminar);

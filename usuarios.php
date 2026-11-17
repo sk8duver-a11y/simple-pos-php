@@ -1,5 +1,6 @@
 <?php
 include "session.php";
+verificarAdministrador();
 ?>
 
 <!DOCTYPE html>
