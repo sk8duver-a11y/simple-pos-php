@@ -34,6 +34,28 @@ include "session.php";
                 <button type="button" id="cancelar" class="btn-cancelar" style="height: 40px;">Cancelar</button>
             </fieldset>
         </form>
+
+        <section id="tabla-usuarios">
+            <fieldset>
+                <legend>Buscar Usuario</legend>
+                <input type="text" id="buscar-usuario" name="buscar-usuario" placeholder="Buscar usuario..." autofocus oninput="this.value = this.value.toUpperCase()">
+                <span>Usuarios:</span>
+                <span id="cantidad-usuarios"></span>
+            </fieldset>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="usuarios-registrados">
+                    <!-- Aquí se agregarán los usuarios registrados -->
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <dialog id="modal-alerta">
@@ -49,6 +71,18 @@ include "session.php";
             </svg>
             <label id="mensaje-alerta"></label>
             <button type="button" class="btn-cancelar" onclick="modalAlerta.close()">Aceptar</button>
+        </div>
+    </dialog>
+
+    <dialog id="modal-eliminar-usuario">
+        <!-- <button type="button" id="btn-cerrar-liquidar" class="btn-eliminar">X</button> -->
+        <div id="modal-alerta-contenido">
+            <span id="nombre-eliminar-usuario"></span>
+            <label>¿Seguro que desea eliminar el usuario?</label>
+            <div>
+                <button type="button" class="btn-cancelar" onclick="modalEliminarUsuario.close()">Cancelar</button>
+                <button type="button" class="btn-eliminar" id="btn-eliminar-usuario">Eliminar</button>
+            </div>
         </div>
     </dialog>
 
