@@ -79,6 +79,39 @@ function listarUsuarios(busqueda = "") {
                 tdNombreUsuario.textContent = usuarioFila.nombre_usuario;
                 fila.appendChild(tdNombreUsuario);
 
+                const tdRol = document.createElement("td");
+                const selectRol = document.createElement("select");
+                tdRol.appendChild(selectRol);
+                selectRol.classList.add("rol-select");
+                selectRol.innerHTML = `
+                    <option value="administrador" ${usuarioFila.rol === "administrador" ? "selected" : ""}>Administrador</option>
+                    <option value="vendedor" ${usuarioFila.rol === "vendedor" ? "selected" : ""}>Vendedor</option>
+                `;
+                fila.appendChild(tdRol);
+
+                selectRol.addEventListener("change", function () {
+                    const nuevoRol = selectRol.value;
+
+                    fetch("controllers/actualizar_rol.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idUsuario: usuarioFila.id_usuario,
+                            rol: nuevoRol
+                        })
+                    })
+                    .then((respuesta) => respuesta.json())
+                    .then((resultado) => {
+
+                        if (resultado.mensaje === "Rol actualizado correctamente.") {
+                            modalAlerta.showModal();
+                            mensajeAlerta.textContent = resultado.mensaje;
+                        }
+                    });
+                });
+
                 const tdAcciones = document.createElement("td");
 
                 const btnPermisos = document.createElement("button");

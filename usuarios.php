@@ -49,6 +49,7 @@ verificarAdministrador();
                     <tr>
                         <th>Usuario</th>
                         <th>Nombre Usuario</th>
+                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

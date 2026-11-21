@@ -749,4 +749,11 @@ tr:hover {
 }
 
 
+.rol-select {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 5px;
+} 
+
 
