@@ -23,6 +23,11 @@ let totalVendido = 0;
 let tiempoBusquedaProducto;
 let tiempoBusquedaCliente;
 
+let productosEncontrados = [];
+let indiceProductoSeleccionado = -1;
+
+
+
 mostrarBuscarCliente();
 
 function formatearMoneda(valor) {
@@ -37,7 +42,6 @@ busquedaProducto.addEventListener("input", function () {
   }, 300);
 });
 
-busquedaProducto.addEventListener("keydown", buscarCodigoBarras);
 inputPagoCon.addEventListener("input", calcularCambio);
 botonCancelar.addEventListener("click", cancelarVenta);
 botonRegistrarVenta.addEventListener("click", registrarVenta);
@@ -58,11 +62,85 @@ btnModalVenta.addEventListener("click", abrirModalVenta);
 btnCerrarModal.addEventListener("click", cerrarModalVenta);
 btnCerrarModal2.addEventListener("click", cerrarModalVenta);
 
-busquedaProducto.addEventListener("keydown", (evento) => {
-  if (event.key === "Escape") {
+busquedaProducto.addEventListener("keydown", manejarTecladoProductos);
+
+function manejarTecladoProductos(evento) {
+
+  const items = listaProductos.querySelectorAll(".item-producto");
+
+  // Navegar hacia abajo.
+  if (evento.key === "ArrowDown" && items.length > 0) {
+    evento.preventDefault();
+
+    indiceProductoSeleccionado++;
+
+    if (indiceProductoSeleccionado >= items.length) {
+      indiceProductoSeleccionado = 0;
+    }
+
+    actualizarProductoSeleccionado(items);
+    return;
+  }
+
+  // Navegar hacia arriba.
+  if (evento.key === "ArrowUp" && items.length > 0) {
+    evento.preventDefault();
+
+    indiceProductoSeleccionado--;
+
+    if (indiceProductoSeleccionado < 0) {
+      indiceProductoSeleccionado = items.length - 1;
+    }
+
+    actualizarProductoSeleccionado(items);
+    return;
+  }
+
+  // Agregar el producto seleccionado con Enter.
+  if (evento.key === "Enter") {
+
+    if (items.length > 0 && listaProductos.style.display !== "none") {
+
+      evento.preventDefault();
+
+      if (indiceProductoSeleccionado === -1) {
+        indiceProductoSeleccionado = 0;
+      }
+
+      agregarProductoVenta(productosEncontrados[indiceProductoSeleccionado]);
+      return;
+    }
+
+    // Si no hay sugerencias, buscar por código de barras.
+    buscarCodigoBarras(evento);
+  }
+
+  // Cerrar las sugerencias con Escape.
+  if (evento.key === "Escape") {
     limpiarProductoBuscado();
   }
-});
+}
+
+function actualizarProductoSeleccionado(items) {
+
+  items.forEach((item, indice) => {
+
+    // Comprobar si este elemento es el seleccionado.
+    const seleccionado = indice === indiceProductoSeleccionado;
+
+    // Agregar o quitar la clase CSS.
+    item.classList.toggle("seleccionado", seleccionado);
+
+    // Mantener visible el producto seleccionado.
+    if (seleccionado) {
+      item.scrollIntoView({
+        block: "nearest"
+      });
+    }
+
+  });
+
+}
 
 async function buscarProductos() {
   const texto = busquedaProducto.value.trim();
@@ -77,6 +155,12 @@ async function buscarProductos() {
     "controllers/listar_productos.php?buscar=" + encodeURIComponent(texto),
   );
   const productos = await respuesta.json();
+
+  // Guardar los productos encontrados.
+  productosEncontrados = productos;
+
+  // Reiniciar la selección cada vez que cambia la búsqueda.
+  indiceProductoSeleccionado = -1;
 
   listaProductos.innerHTML = "";
 
@@ -284,12 +368,21 @@ async function registrarVenta() {
 function limpiarProductoBuscado() {
   busquedaProducto.value = "";
   busquedaProducto.focus();
+
+  listaProductos.innerHTML = "";
   listaProductos.style.display = "none";
+
+  productosEncontrados = [];
+  indiceProductoSeleccionado = -1;
 }
 
 function limpiarBusqueda() {
   listaProductos.innerHTML = "";
   listaProductos.style.display = "none";
+
+  productosEncontrados = [];
+  indiceProductoSeleccionado = -1;
+
   busquedaProducto.value = "";
   busquedaProducto.focus();
 }
@@ -311,7 +404,7 @@ function mostrarBuscarCliente() {
 
 async function buscarClientes() {
   const textoCliente = inputBuscarCliente.value.trim();
-  
+
   if (textoCliente === "") {
     listaClientes.style.display = "none";
     listaClientes.innerHTML = "";
@@ -336,7 +429,7 @@ async function buscarClientes() {
 
     div.textContent = `${cliente.nombre}`;
 
-    div.addEventListener("click", function() {
+    div.addEventListener("click", function () {
       seleccionarCliente(cliente)
     });
 
@@ -346,16 +439,16 @@ async function buscarClientes() {
   listaClientes.style.display = "block";
 }
 
-function seleccionarCliente (cliente) {
+function seleccionarCliente(cliente) {
   inputBuscarCliente.value = cliente.nombre;
   listaClientes.style.display = "none";
   idClienteSeleccionado = cliente.id_cliente;
 }
 
-function abrirModalVenta () {
-const filas = tablaVenta.querySelectorAll("tr");
+function abrirModalVenta() {
+  const filas = tablaVenta.querySelectorAll("tr");
 
-if (filas.length === 0) {
+  if (filas.length === 0) {
     mensajeAlerta.textContent = "Debe agregar al menos un producto.";
     modalAlerta.showModal();
     return;
@@ -370,6 +463,6 @@ if (filas.length === 0) {
   }
 }
 
-function cerrarModalVenta () {
+function cerrarModalVenta() {
   modalVenta.close();
 }

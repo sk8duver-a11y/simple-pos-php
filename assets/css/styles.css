@@ -303,6 +303,12 @@ tr:hover {
   cursor: pointer;
 }
 
+.item-producto.seleccionado {
+    background-color: #dbeafe;
+    color: #1e40af;
+    font-weight: bold;
+}
+
 .item-producto:hover,
 .item-cliente:hover {
   background-color: #f0f0f0;
