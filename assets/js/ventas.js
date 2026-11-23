@@ -55,7 +55,7 @@ function crearTablaVentas(ventas) {
   const thead = document.createElement("thead");
   const tr = document.createElement("tr");
 
-  const encabezados = ["Hora", "Productos", "Total", "Tipo Venta", "Acciones"];
+  const encabezados = ["Venta", "Hora", "Productos", "Total", "Tipo Venta", "Acciones"];
 
   encabezados.forEach((texto) => {
     const th = document.createElement("th");
@@ -70,6 +70,10 @@ function crearTablaVentas(ventas) {
 
   ventas.forEach((venta) => {
     const tr = document.createElement("tr");
+
+    const tdIdVenta = document.createElement("td");
+    tdIdVenta.textContent = venta.id_venta;
+    tr.appendChild(tdIdVenta);
 
     const tdHora = document.createElement("td");
     tdHora.textContent = venta.hora;

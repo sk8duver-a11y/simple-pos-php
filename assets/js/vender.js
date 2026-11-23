@@ -34,6 +34,89 @@ function formatearMoneda(valor) {
   return `$${Number(valor).toLocaleString("es-CO")}`;
 }
 
+function guardarVentaTemporal() {
+
+  const filas = tablaVenta.querySelectorAll("tr");
+
+  const productos = [];
+
+  filas.forEach((fila) => {
+
+    productos.push({
+      idProducto: fila.dataset.idProducto,
+      codigoBarras: fila.cells[0].textContent,
+      nombre: fila.cells[1].textContent,
+      precioCompra: fila.dataset.precioCompra,
+      precioVenta: fila.dataset.precioVenta,
+      cantidad: fila.querySelector(".cantidad").value
+    });
+
+  });
+
+  localStorage.setItem("ventaTemporal", JSON.stringify(productos));
+
+}
+
+function cargarVentaTemporal() {
+
+  const ventaGuardada = localStorage.getItem("ventaTemporal");
+
+  // Si no existe una venta guardada, no hacemos nada.
+  if (!ventaGuardada) {
+    return;
+  }
+
+  try {
+
+    const productos = JSON.parse(ventaGuardada);
+
+    // Comprobar que los datos sean un arreglo.
+    if (!Array.isArray(productos)) {
+      return;
+    }
+
+    productos.forEach((productoGuardado) => {
+
+      // Reconstruir el objeto con la estructura que utiliza agregarProductoVenta().
+      const producto = {
+        id_producto: Number(productoGuardado.idProducto),
+        codigo_barras: productoGuardado.codigoBarras,
+        nombre: productoGuardado.nombre,
+        precio_compra: Number(productoGuardado.precioCompra),
+        precio_venta: Number(productoGuardado.precioVenta)
+      };
+
+      // Agregar nuevamente el producto a la tabla.
+      agregarProductoVenta(producto);
+
+      // Buscar la fila que acabamos de agregar.
+      const fila = Array.from(tablaVenta.querySelectorAll("tr"))
+        .find((fila) => fila.dataset.idProducto === String(producto.id_producto));
+
+      if (fila) {
+
+        // Recuperar la cantidad que tenía el producto.
+        const inputCantidad = fila.querySelector(".cantidad");
+
+        inputCantidad.value = Math.max(1, Number(productoGuardado.cantidad) || 1);
+
+        // Ejecutar el evento input para recalcular el subtotal y el total.
+        inputCantidad.dispatchEvent(new Event("input"));
+
+      }
+
+    });
+
+  } catch (error) {
+
+    console.error("Error al recuperar la venta temporal:", error);
+
+    localStorage.removeItem("ventaTemporal");
+
+  }
+
+}
+
 busquedaProducto.addEventListener("input", function () {
   clearTimeout(tiempoBusquedaProducto);
 
@@ -203,6 +286,8 @@ function agregarProductoVenta(producto) {
 
       calcularTotalVenta();
 
+      guardarVentaTemporal();
+
       limpiarBusqueda();
 
       return;
@@ -243,13 +328,19 @@ function agregarProductoVenta(producto) {
     fila.querySelector(".total-fila").textContent = formatearMoneda(total);
 
     calcularTotalVenta();
+
+    guardarVentaTemporal();
   });
 
   botonEliminar.addEventListener("click", function () {
     fila.remove();
     calcularTotalVenta();
+    guardarVentaTemporal();
   });
 
+  // Guardar la venta temporal después de agregar un producto nuevo.
+  guardarVentaTemporal();
+  
   limpiarBusqueda();
 }
 
@@ -314,6 +405,13 @@ function cancelarVenta() {
   busquedaProducto.focus();
   listaProductos.innerHTML = "";
   listaProductos.style.display = "none";
+
+  // Eliminar la venta temporal del navegador.
+  localStorage.removeItem("ventaTemporal");
+
+  // Reiniciar las variables de la búsqueda.
+  productosEncontrados = [];
+  indiceProductoSeleccionado = -1;
 }
 
 async function registrarVenta() {
@@ -466,3 +564,6 @@ function abrirModalVenta() {
 function cerrarModalVenta() {
   modalVenta.close();
 }
+
+// Recuperar la venta temporal al cargar la página.
+cargarVentaTemporal();
