@@ -5,17 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punto Venta - Login</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=lock,person" />
 </head>
 
 <body>
     <form id="login-puntoVenta">
-        <fieldset id="fieldset-login">
-            <legend>Iniciar Sesión</legend>
-            <input type="text" id="usuario" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" autocomplete="off" required>
+        <div>
+            <h2>Iniciar sesión</h2>
+            <p>Ingresa tus datos para continuar</p>
+        </div>
+        <div id="campos-login">
+            <div id="campo">
+                <label for="usuario">Usuario</label>
+                <div class="icono-usuario">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">person</span>
+                    <input type="text" id="usuario" placeholder="Usuario" required>
+                </div>
+            </div>
+            <div id="campo">
+                <label for="password">Contraseña</label>
+                <div class="icono-usuario">
+                    <span class="material-symbols-outlined" style="font-size: 15px;">lock</span>
+                    <input type="password" id="password" placeholder="Contraseña" autocomplete="off" required>
+                </div>
+            </div>
+        </div>
+        <div>
             <button type="submit" class="btn-agregar">Ingresar</button>
-        </fieldset>
+        </div>
     </form>
 
     <dialog id="modal-alerta">

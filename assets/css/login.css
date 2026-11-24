@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+/* ==========================
+   RESET
+========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================
+   VARIABLES
+========================== */
+
+:root {
+    /* ---------- Nombres originales de tu styles.css (con colores nuevos) ---------- */
+    --white-bg1: #ffffff;
+    /* tarjetas, menú lateral */
+    --white-bg2: #f4f5fb;
+    /* fondo general de la página */
+    --white-bg3: #e5e7eb;
+    /* bordes y divisores */
+
+    --yellow-btn: #f59e0b;
+    /* editar */
+    --red-btn: #dc2626;
+    /* eliminar, cancelar */
+    --green-btn: #16a34a;
+    /* agregar, vender, descargar */
+    --blue-btn: #4f46e5;
+    /* ahora índigo: títulos, acento principal */
+
+    --black: #1e1b4b;
+    /* texto principal */
+    --gray: #4b5563;
+    /* texto secundario, etiquetas */
+
+    /* ---------- Índigo (color principal) ---------- */
+    --indigo: #4f46e5;
+    /* ítem activo, total de venta, foco */
+    --indigo-dark: #4338ca;
+    /* hover, encabezados de tabla, textos de acento */
+    --indigo-accent: #6366f1;
+    /* íconos de búsqueda, calendario y flechas */
+    --indigo-tint: #eef2ff;
+    /* encabezado de tabla, badges, hover suave */
+    --indigo-border: #c7d2fe;
+    /* borde de botones secundarios (Cancelar) */
+    --indigo-row: #fafaff;
+    /* hover de filas */
+
+    /* ---------- Verde (confirmar, ganancia, contado) ---------- */
+    --verde: #16a34a;
+    --verde-dark: #15803d;
+    /* hover */
+    --verde-tint: #dcfce7;
+    /* tarjeta Cambio / Ganancia, badge CONTADO */
+    --verde-text: #166534;
+
+    /* ---------- Rojo (cancelar, eliminar) ---------- */
+    --rojo: #dc2626;
+    --rojo-tint: #fee2e2;
+    /* botón Eliminar, Cerrar sesión, "X" */
+    --rojo-hover: #fecaca;
+    --rojo-border: #fca5a5;
+    /* borde de Cancelar Venta */
+    --rojo-text: #b91c1c;
+
+    /* ---------- Ámbar (editar, pendiente) ---------- */
+    --ambar-tint: #fef3c7;
+    --ambar-text: #92400e;
+
+    /* ---------- Neutros ---------- */
+    --borde: #e5e7eb;
+    --divisor: #f3f4f6;
+    /* línea entre filas */
+    --texto: #374151;
+    /* texto de celdas */
+    --texto-suave: #6b7280;
+    /* códigos, etiquetas pequeñas */
+    --texto-placeholder: #9ca3af;
+}
+
+/* ---------- Login ---------- */
+#login-puntoVenta {
+    background-color: var(--white-bg1);
+    border: 1px solid var(--white-bg3);
+    margin: auto;
+    padding: 30px 25px;
+    border-radius: 20px;
+    width: 350px;
+}
+
+h2 {
+    color: var(--black);
+    font-weight: bold;
+    text-align: center;
+}
+
+p {
+    color: var(--gray);
+    font-size: 15px;
+    text-align: center;
+}
+
+#campos-login {
+    margin: 20px 0;
+}
+
+#campo {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+label {
+    color: var(--gray);
+    margin-bottom: 5px;
+    font-size: 15px
+}
+
+.icono-usuario {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px solid var(--white-bg3);
+    border-radius: 8px;
+}
+
+.icono-usuario:focus-within {
+    border: 1px solid var(--indigo);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.material-symbols-outlined {
+    color: var(--indigo);
+}
+
+input {
+    color: var(--gray);
+    outline: none;
+    border: none;
+    margin-left: 5px;
+}
+
+.btn-agregar {
+    width: 100%;
+    background-color: var(--verde);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-bg1);
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0 5px 0 5px;
+}
+
+.btn-agregar:hover {
+    transform: translateY(-2px);
+}

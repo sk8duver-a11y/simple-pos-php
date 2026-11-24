@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+/* ==========================
+   RESET
+========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================
+   VARIABLES
+========================== */
+
+:root {
+    /* ---------- Nombres originales de tu styles.css (con colores nuevos) ---------- */
+    --white-bg1: #ffffff;
+    /* tarjetas, menú lateral */
+    --white-bg2: #f4f5fb;
+    /* fondo general de la página */
+    --white-bg3: #e5e7eb;
+    /* bordes y divisores */
+
+    --yellow-btn: #f59e0b;
+    /* editar */
+    --red-btn: #dc2626;
+    /* eliminar, cancelar */
+    --green-btn: #16a34a;
+    /* agregar, vender, descargar */
+    --blue-btn: #4f46e5;
+    /* ahora índigo: títulos, acento principal */
+
+    --black: #1e1b4b;
+    /* texto principal */
+    --gray: #4b5563;
+    /* texto secundario, etiquetas */
+
+    /* ---------- Índigo (color principal) ---------- */
+    --indigo: #4f46e5;
+    /* ítem activo, total de venta, foco */
+    --indigo-dark: #4338ca;
+    /* hover, encabezados de tabla, textos de acento */
+    --indigo-accent: #6366f1;
+    /* íconos de búsqueda, calendario y flechas */
+    --indigo-tint: #eef2ff;
+    /* encabezado de tabla, badges, hover suave */
+    --indigo-border: #c7d2fe;
+    /* borde de botones secundarios (Cancelar) */
+    --indigo-row: #fafaff;
+    /* hover de filas */
+
+    /* ---------- Verde (confirmar, ganancia, contado) ---------- */
+    --verde: #16a34a;
+    --verde-dark: #15803d;
+    /* hover */
+    --verde-tint: #dcfce7;
+    /* tarjeta Cambio / Ganancia, badge CONTADO */
+    --verde-text: #166534;
+
+    /* ---------- Rojo (cancelar, eliminar) ---------- */
+    --rojo: #dc2626;
+    --rojo-tint: #fee2e2;
+    /* botón Eliminar, Cerrar sesión, "X" */
+    --rojo-hover: #fecaca;
+    --rojo-border: #fca5a5;
+    /* borde de Cancelar Venta */
+    --rojo-text: #b91c1c;
+
+    /* ---------- Ámbar (editar, pendiente) ---------- */
+    --ambar-tint: #fef3c7;
+    --ambar-text: #92400e;
+
+    /* ---------- Neutros ---------- */
+    --borde: #e5e7eb;
+    --divisor: #f3f4f6;
+    /* línea entre filas */
+    --texto: #374151;
+    /* texto de celdas */
+    --texto-suave: #6b7280;
+    /* códigos, etiquetas pequeñas */
+    --texto-placeholder: #9ca3af;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  flex: 1;
+  padding: 10px;
+  background-color: var(--white-bg1);
+  gap: 10px;
+  height: 100vh;
+  border-right: 1px solid var(--white-bg3);
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+main {
+  flex: 8;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  overflow: auto;
+  background-color: var(--white-bg2);
+}
+
+li {
+  margin: 15px 5px;
+  display: flex;
+}
+
+a {
+  width: 100%;
+  text-decoration: none;
+  color: var(--gray);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+a.activo {
+  background: var(--indigo);
+  color: var(--white-bg1);
+  box-shadow: 0 4px 10px rgba(70, 95, 241, .18);
+  display: flex;
+}
+
+a:hover {
+  background-color: var(--indigo);
+  color: var(--white-bg1);
+}
+
+.material-symbols-outlined{
+    margin-right: 10px;
+}
+
+#cerrar-sesion {
+  background-color: var(--rojo-tint);
+  color: var(--rojo);
+  border: 1px solid var(--rojo-border);
+  transition: 0.3s;
+}
+
+#cerrar-sesion:hover {
+  background-color: var(--rojo-hover);
+}
+
+/* li {
+  margin: 15px 5px;
+  display: flex;
+}
+
+a {
+  width: 100%;
+  text-decoration: none;
+  color: var(--gray);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+a:hover {
+  background-color: var(--white-bg3);
+  transform: translateY(-2px);
+}
+
+#cerrar-sesion {
+  background-color: var(--red-btn);
+  color: var(--white-bg1);
+  transition: 0.3s;
+}
+
+#cerrar-sesion:hover {
+  transform: translateY(-2px);
+}
+
+header a.activo {
+  background: #465ff1;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(70, 95, 241, .18);
+}
+
+svg{
+    width: 20px;
+}
+
+
+
+nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+main {
+  flex: 6;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  overflow: auto;
+  background-color: var(--white-bg2);
+}
