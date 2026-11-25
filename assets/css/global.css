@@ -1,7 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* ==========================
+   VARIABLES
+========================== */
+:root {
+    /* ---------- Nombres originales de tu styles.css (con colores nuevos) ---------- */
+    --white-bg1: #ffffff;
+    /* tarjetas, menú lateral */
+    --white-bg2: #f4f5fb;
+    /* fondo general de la página */
+    --white-bg3: #e5e7eb;
+    /* bordes y divisores */
+
+    --yellow-btn: #f59e0b;
+    /* editar */
+    --red-btn: #dc2626;
+    /* eliminar, cancelar */
+    --green-btn: #16a34a;
+    /* agregar, vender, descargar */
+    --blue-btn: #4f46e5;
+    /* ahora índigo: títulos, acento principal */
+
+    --black: #1e1b4b;
+    /* texto principal */
+    --gray: #4b5563;
+    /* texto secundario, etiquetas */
+
+    /* ---------- Índigo (color principal) ---------- */
+    --indigo: #4f46e5;
+    /* ítem activo, total de venta, foco */
+    --indigo-dark: #4338ca;
+    /* hover, encabezados de tabla, textos de acento */
+    --indigo-accent: #6366f1;
+    /* íconos de búsqueda, calendario y flechas */
+    --indigo-tint: #eef2ff;
+    /* encabezado de tabla, badges, hover suave */
+    --indigo-border: #c7d2fe;
+    /* borde de botones secundarios (Cancelar) */
+    --indigo-row: #fafaff;
+    /* hover de filas */
+
+    /* ---------- Verde (confirmar, ganancia, contado) ---------- */
+    --verde: #16a34a;
+    --verde-dark: #15803d;
+    /* hover */
+    --verde-tint: #dcfce7;
+    /* tarjeta Cambio / Ganancia, badge CONTADO */
+    --verde-text: #166534;
+
+    /* ---------- Rojo (cancelar, eliminar) ---------- */
+    --rojo: #dc2626;
+    --rojo-tint: #fee2e2;
+    /* botón Eliminar, Cerrar sesión, "X" */
+    --rojo-hover: #fecaca;
+    --rojo-border: #fca5a5;
+    /* borde de Cancelar Venta */
+    --rojo-text: #b91c1c;
+
+    /* ---------- Ámbar (editar, pendiente) ---------- */
+    --ambar-tint: #fef3c7;
+    --ambar-text: #92400e;
+
+    /* ---------- Neutros ---------- */
+    --borde: #e5e7eb;
+    --divisor: #f3f4f6;
+    /* línea entre filas */
+    --texto: #374151;
+    /* texto de celdas */
+    --texto-suave: #6b7280;
+    /* códigos, etiquetas pequeñas */
+    --texto-placeholder: #9ca3af;
 }
 
 body {
@@ -9,4 +83,199 @@ body {
     display: flex;
     height: 100vh;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================
+   TABLAS
+========================== */
+.section-tablas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-bg1);
+    border: 1px solid var(--white-bg3);
+    border-radius: 10px;
+    height: 80vh;
+    overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--white-bg3);
+}
+
+th {
+  color: var(--indigo);
+  font-weight: bold;
+  background-color: var(--indigo-row);
+}
+
+td {
+  color: var(--gray);
+}
+
+tr:hover {
+  background-color: var(--white-bg2);
+}
+
+/* ==========================
+   MODALES
+========================== */
+#modalVenta,
+#modal-detalle-venta,
+#modal-abono,
+#modal-liquidar,
+#modal-alerta,
+#modal-eliminar-producto,
+#modal-eliminar-venta,
+#modal-eliminar-cliente,
+#modal-eliminar-usuario {
+  margin: auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 40px;
+  border: 1px solid var(--white-bg3);
+  border-radius: 10px;
+  animation: modal-entrada 0.28s ease-out;
+}
+
+/* Backdrop */
+#modalVenta::backdrop,
+#modal-detalle-venta::backdrop,
+#modal-abono::backdrop,
+#modal-liquidar::backdrop,
+#modal-alerta::backdrop,
+#modal-eliminar-producto::backdrop,
+#modal-eliminar-venta::backdrop,
+#modal-eliminar-cliente::backdrop {
+  background-color: rgba(0, 0, 0, 0.55);
+  animation: backdrop-entrada 0.28s ease-out;
+}
+
+/* Animaciones */
+@keyframes modal-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes backdrop-entrada {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.55);
+  }
+}
+
+
+/* ==========================
+   MODAL ALERTA
+========================== */
+#modal-alerta-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* ==========================
+   BOTONES DE CIERRE DE MODALES
+========================== */
+#btn-cerrar-modal-2,
+#btn-cerrar-abono,
+#btn-cerrar-liquidar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  border: 1px solid var(--rojo);
+  background-color: var(--white-bg1);
+  color: var(--rojo);
+  font-weight: bold;
+  padding:2px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btn-cerrar-modal-2:hover,
+#btn-cerrar-abono:hover,
+#btn-cerrar-liquidar:hover {
+  background-color: var(--rojo);
+  color: var(--white-bg1);
+}
+
+.btn-aceptar-alerta{
+  background-color: var(--indigo);
+  padding: 10px;
+  color: var(--white-bg1);
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+}
+
+.btn-aceptar-alerta:hover{
+  background-color: var(--indigo-dark);
+}
+
+#nombre-producto-eliminar,
+#nombre-eliminar-cliente{
+  color: var(--black);
+  font-weight: bold;
+}
+
+.btn-cancelar-alerta{
+  background-color: var(--indigo);
+  padding: 10px;
+  color: var(--white-bg1);
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+}
+
+.btn-cancelar-alerta:hover{
+  background-color: var(--indigo-dark);
+}
+
+.btn-confirmar-eliminar{
+  background-color: var(--green-btn);
+  padding: 10px;
+  color: var(--white-bg1);
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+}
+
+.btn-confirmar-eliminar:hover{
+  background-color: var(--verde-dark);
+}
+
+.botones-modal{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
 }

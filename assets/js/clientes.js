@@ -102,9 +102,9 @@ function listarClientes(busqueda = "") {
         const tdAcciones = document.createElement("td");
 
         const btnVerCliente = document.createElement("button");
-        btnVerCliente.textContent = "Ver Cliente";
+        btnVerCliente.textContent = "Ver cliente";
         btnVerCliente.dataset.id_cliente = cliente.id_cliente;
-        btnVerCliente.classList.add("btn-agregar");
+        btnVerCliente.classList.add("btn-ver-cliente");
 
         btnVerCliente.addEventListener("click", function () {
           const idCliente = btnVerCliente.dataset.id_cliente;

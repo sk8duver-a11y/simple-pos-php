@@ -307,7 +307,7 @@ function agregarProductoVenta(producto) {
         <td>${formatearMoneda(producto.precio_venta)}</td>
         <td><input type="number" class="cantidad" value="1" min="1" style="width:60px;"></td>
         <td class="total-fila">${formatearMoneda(producto.precio_venta)}</td>
-        <td><button class="btn-eliminar">X</button></td>
+        <td><button class="btn-eliminar"><span class="material-symbols-outlined" style="color: var(--red-btn);">delete</span></button></td>
     `;
 
   tablaVenta.appendChild(fila);

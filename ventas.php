@@ -64,13 +64,13 @@ date_default_timezone_set('America/Bogota');
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#155dfc" stroke-width="2"></path>
-                    <path d="M12 8L12 13" stroke="#155dfc" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M12 16V15.9888" stroke="#155dfc" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4f46e5" stroke-width="2"></path>
+                    <path d="M12 8L12 13" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 16V15.9888" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"></path>
                 </g>
             </svg>
             <label id="mensaje-alerta"></label>
-            <button type="button" class="btn-cancelar" onclick="modalAlerta.close()">Aceptar</button>
+            <button type="button" class="btn-aceptar-alerta" onclick="modalAlerta.close()">Aceptar</button>
         </div>
     </dialog>
 
@@ -80,8 +80,8 @@ date_default_timezone_set('America/Bogota');
             <span id="nombre-producto-eliminar"></span>
             <label>¿Seguro que desea eliminar el producto?</label>
             <div>
-                <button type="button" class="btn-cancelar" onclick="modalEliminarProducto.close()">Cancelar</button>
-                <button type="button" class="btn-eliminar" id="btn-eliminar-producto">Eliminar</button>
+                <button type="button" class="btn-cancelar-alerta" onclick="modalEliminarProducto.close()">Cancelar</button>
+                <button type="button" class="btn-confirmar-eliminar" id="btn-eliminar-producto">Eliminar</button>
             </div>
         </div>
     </dialog>
@@ -91,8 +91,8 @@ date_default_timezone_set('America/Bogota');
         <div id="modal-alerta-contenido">
             <label>¿Seguro que desea eliminar la venta?</label>
             <div>
-                <button type="button" class="btn-cancelar" onclick="modalEliminarVenta.close()">Cancelar</button>
-                <button type="button" class="btn-eliminar" id="btn-confirmar-eliminar-venta">Eliminar</button>
+                <button type="button" class="btn-cancelar-alerta" onclick="modalEliminarVenta.close()">Cancelar</button>
+                <button type="button" class="btn-confirmar-eliminar" id="btn-confirmar-eliminar-venta">Eliminar</button>
             </div>
         </div>
     </dialog>

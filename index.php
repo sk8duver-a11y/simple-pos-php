@@ -11,42 +11,46 @@ include "session.php";
     <title>Punto Venta - Vender</title>
     <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
     <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart,package_2,group,receipt,bar_chart,manage_accounts" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=shopping_cart,package_2,group,receipt,bar_chart,manage_accounts,search,delete" />
 </head>
 
 <body>
     <?php include 'header.php'; ?>
     <main>
-        <section id="section-busqueda-producto">
-            <label for="busqueda-producto">Buscar</label>
-            <input type="text" id="busqueda-producto" name="busqueda-producto" autocomplete="off" oninput="this.value = this.value.toUpperCase()" autofocus required>
-            <button id="btn-limpiar-texto" class="btn-eliminar">X</button>
+        <div id="contenedor-busqueda">
+            <div id="section-busqueda-producto">
+                <span class="material-symbols-outlined" style="color: var(--indigo);">search</span>
+                <input type="text" id="busqueda-producto" name="busqueda-producto" placeholder="Buscar producto o escanear código" autocomplete="off" oninput="this.value = this.value.toUpperCase()" autofocus required>
+                <button id="btn-limpiar-texto">X</button>
+            </div>
             <div id="lista-productos"></div>
-        </section>
+        </div>
 
-        <section id="tabla-venta-productos">
-            <div id="opciones-venta">
-                <div class="detalles-venta">
-                    <label>Total Venta:</label>
-                    <span id="total-venta">$0</span>
-                </div>
-                <div class="detalles-venta">
-                    <label>Cuánto pagó:</label>
+        <div id="detalles-venta">
+            <div id="detalles-total-venta">
+                <label>Total venta</label>
+                <span id="total-venta">$0</span>
+            </div>
+            <div id="detalles-cuanto-pago">
+                <label>Cuánto pagó</label>
+                <div id="div-cuanto-pago">
+                    <span id="signo-pesos">$</span>
                     <input type="number" id="pago-con">
                 </div>
-                <div class="detalles-venta">
-                    <label>Cambio:</label>
-                    <span id="cambio-dinero">$0</span>
-                </div>
-                <div class="detalles-venta">
-                    <button id="cancelar-venta" class="btn-eliminar">Cancelar Venta</button>
-                </div>
-                <div class="detalles-venta">
-                    <button type="button" id="btn-modal-venta" class="btn-agregar">Vender</button>
-                </div>
             </div>
+            <div id="detalles-cambio">
+                <label>Cambio</label>
+                <span id="cambio-dinero">$0</span>
+            </div>
+            <div id="detalles-botones">
+                <button type="button" id="cancelar-venta">Cancelar Venta</button>
+                <button type="button" id="btn-modal-venta">Vender</button>
+            </div>
+        </div>
+
+        <div class="section-tablas">
             <table>
                 <thead>
                     <tr>
@@ -62,8 +66,7 @@ include "session.php";
                     <!-- Aquí se agregarán los productos registrados -->
                 </tbody>
             </table>
-
-        </section>
+        </div>
     </main>
 
     <dialog id="modalVenta">
@@ -80,11 +83,16 @@ include "session.php";
             </label>
         </div>
         <div id="buscar-cliente">
+            <span class="material-symbols-outlined" style="color: var(--indigo);">search</span>
             <input type="text" id="input-buscar-cliente" placeholder="Nombre cliente..." autocomplete="off" oninput="this.value = this.value.toUpperCase()">
         </div>
-        <div id="lista-clientes"></div>
-        <button type="button" id="btn-cerrar-modal" class="btn-eliminar">Cancelar</button>
-        <button id="registrar-venta" class="btn-agregar">Registrar Venta</button>
+        <div id="contenedor-lista-clientes">
+            <div id="lista-clientes"></div>
+        </div>
+        <div class="botones-modal-venta">
+            <button type="button" id="btn-cerrar-modal">Cancelar</button>
+            <button id="registrar-venta">Registrar venta</button>
+        </div>
     </dialog>
 
     <dialog id="modal-alerta">
@@ -93,13 +101,13 @@ include "session.php";
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
-                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#155dfc" stroke-width="2"></path>
-                    <path d="M12 8L12 13" stroke="#155dfc" stroke-width="2" stroke-linecap="round"></path>
-                    <path d="M12 16V15.9888" stroke="#155dfc" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#4f46e5" stroke-width="2"></path>
+                    <path d="M12 8L12 13" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 16V15.9888" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"></path>
                 </g>
             </svg>
             <label id="mensaje-alerta"></label>
-            <button type="button" class="btn-cancelar" onclick="modalAlerta.close()">Aceptar</button>
+            <button type="button" class="btn-aceptar-alerta" onclick="modalAlerta.close()">Aceptar</button>
         </div>
     </dialog>
 
